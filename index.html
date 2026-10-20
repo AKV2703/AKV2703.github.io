@@ -8,292 +8,404 @@
 <meta name="description" content="Portfolio of Anish Kumar Vaswani, Computer Science (Data Science) graduate from Deakin University working across cloud, data pipelines and machine learning.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@500;600;700;800&family=Newsreader:opsz,wght@6..72,400;6..72,500&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@500;600;700;800;900&family=Hanken+Grotesk:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap">
 <style>
-/* Layout: a single reading column framed like an infrastructure template. Hero pairs a statement with a stack "Outputs" panel; work is a filterable two-column grid where each card leads with its measured result. */
+/* Layout: a dark "night network" hero band with a live data-flow canvas, then light themed sections. Colour encodes domain: cyan = cloud & software, coral = data & ML, amber = highlights. */
 :root{
-  --bg:#F2F4F1; --panel:#E7ECE6; --card:#FBFCFA; --ink:#16201C; --muted:#56635C; --line:#CBD4CC; --accent:#0E6B58; --accent-soft:#D5E7DF;
+  --bg:#F5F7FB; --card:#FFFFFF; --ink:#111827; --muted:#5A6479; --line:#DCE2EC;
+  --cloud:#0A9DB0; --data:#E8572F; --sun:#E0A100;
+  --h-bg:#0A0F1E; --h-ink:#EEF2FA; --h-muted:#A3ADC4; --h-line:rgba(255,255,255,.12);
+  --h-cloud:#3FD0E0; --h-data:#FF7E5F; --h-sun:#FFC94D;
   --display:"Schibsted Grotesk", "Helvetica Neue", Arial, sans-serif;
-  --body:"Newsreader", Georgia, "Times New Roman", serif;
+  --body:"Hanken Grotesk", "Helvetica Neue", Arial, sans-serif;
   --mono:"JetBrains Mono", ui-monospace, Menlo, Consolas, monospace;
-  --s1:.25rem; --s2:.5rem; --s3:.75rem; --s4:1rem; --s5:1.5rem; --s6:2rem; --s7:3rem; --s8:4.5rem;
+  --s1:.25rem; --s2:.5rem; --s3:.75rem; --s4:1rem; --s5:1.5rem; --s6:2rem; --s7:3rem; --s8:5rem;
 }
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
-  --bg:#101614; --panel:#18201D; --card:#141B18; --ink:#E4EBE6; --muted:#98A69F; --line:#2A3631; --accent:#5CC4A6; --accent-soft:#1D3530; color-scheme:dark}}
+  --bg:#0D1220; --card:#151C2E; --ink:#E8ECF5; --muted:#9AA4BA; --line:#263049;
+  --cloud:#3FD0E0; --data:#FF7E5F; --sun:#FFC94D; color-scheme:dark}}
 :root[data-theme="dark"]{
-  --bg:#101614; --panel:#18201D; --card:#141B18; --ink:#E4EBE6; --muted:#98A69F; --line:#2A3631; --accent:#5CC4A6; --accent-soft:#1D3530; color-scheme:dark}
+  --bg:#0D1220; --card:#151C2E; --ink:#E8ECF5; --muted:#9AA4BA; --line:#263049;
+  --cloud:#3FD0E0; --data:#FF7E5F; --sun:#FFC94D; color-scheme:dark}
 
 *{box-sizing:border-box}
-body{background:var(--bg); color:var(--ink); font-family:var(--body); font-size:1.125rem; line-height:1.6;
-  padding-left:max(16px, env(safe-area-inset-left, 0px)); padding-right:max(16px, env(safe-area-inset-right, 0px)); padding-block:0}
+html{scroll-behavior:smooth}
+body{margin:0; background:var(--bg); color:var(--ink); font-family:var(--body); font-size:1.08rem; line-height:1.6}
+[hidden]{display:none !important}
 a{color:inherit}
-a:focus-visible, button:focus-visible{outline:2px solid var(--accent); outline-offset:3px; border-radius:4px}
-.wrap{max-width:1080px; margin:0 auto}
-h1,h2,h3{font-family:var(--display); text-wrap:balance; margin:0; letter-spacing:-.01em}
-.eyebrow{font-family:var(--mono); font-size:.75rem; letter-spacing:.12em; text-transform:uppercase; color:var(--muted)}
+a:focus-visible, button:focus-visible{outline:2px solid var(--cloud); outline-offset:3px; border-radius:6px}
+.wrap{max-width:1168px; margin:0 auto; padding-left:max(24px, env(safe-area-inset-left, 0px)); padding-right:max(24px, env(safe-area-inset-right, 0px))}
+h1,h2,h3{font-family:var(--display); text-wrap:balance; margin:0; letter-spacing:-.015em; line-height:1.1}
+.eyebrow{font-family:var(--mono); font-size:.75rem; letter-spacing:.14em; text-transform:uppercase; color:var(--muted); margin:0}
+.grad{background:linear-gradient(90deg, var(--h-cloud), var(--h-sun) 55%, var(--h-data)); -webkit-background-clip:text; background-clip:text; color:transparent}
 
-/* nav */
-body::before{content:""; position:fixed; inset:0 0 auto; height:env(safe-area-inset-top, 0px); z-index:10; background:var(--bg)}
-nav{position:sticky; top:env(safe-area-inset-top, 0px); z-index:5; background:color-mix(in srgb, var(--bg) 88%, transparent); backdrop-filter:blur(8px); border-bottom:1px solid var(--line)}
+/* progress + nav */
+body::before{content:""; position:fixed; inset:0 0 auto; height:env(safe-area-inset-top, 0px); z-index:30; background:var(--h-bg)}
+.progress{position:fixed; top:env(safe-area-inset-top, 0px); left:0; right:0; height:3px; z-index:25; background:linear-gradient(90deg, var(--h-cloud), var(--h-sun), var(--h-data)); transform-origin:left; transform:scaleX(0)}
+nav{position:sticky; top:env(safe-area-inset-top, 0px); z-index:20; background:color-mix(in srgb, var(--h-bg) 86%, transparent); backdrop-filter:blur(10px); border-bottom:1px solid var(--h-line); color:var(--h-ink)}
 nav .wrap{display:flex; align-items:center; justify-content:space-between; gap:var(--s4); padding-block:var(--s3); flex-wrap:wrap}
-.mark{font-family:var(--display); font-weight:800; font-size:1rem; text-decoration:none; letter-spacing:.02em}
-.mark span{color:var(--accent)}
+.mark{font-family:var(--display); font-weight:900; font-size:1.05rem; text-decoration:none; letter-spacing:.02em}
+.mark span{color:var(--h-data)}
+.navr{display:flex; align-items:center; gap:var(--s5); flex-wrap:wrap}
 nav ul{display:flex; gap:var(--s5); list-style:none; margin:0; padding:0; font-family:var(--display); font-weight:500; font-size:.95rem; flex-wrap:wrap}
-nav ul a{text-decoration:none; color:var(--muted)}
-nav ul a:hover{color:var(--ink)}
+nav ul a{text-decoration:none; color:var(--h-muted); transition:color .2s}
+nav ul a:hover{color:var(--h-ink)}
+.theme{width:36px; height:36px; border-radius:50%; border:1px solid var(--h-line); background:transparent; color:var(--h-ink); cursor:pointer; display:grid; place-items:center}
+.theme svg{width:18px; height:18px; fill:none; stroke:currentColor; stroke-width:1.8; stroke-linecap:round}
+.theme:hover{border-color:var(--h-sun); color:var(--h-sun)}
 
-/* hero */
-.hero{display:grid; grid-template-columns:1.25fr 1fr; gap:var(--s7); align-items:end; padding-block:var(--s8) var(--s7)}
+/* hero band */
+.band{position:relative; background:var(--h-bg); color:var(--h-ink); overflow:hidden; isolation:isolate}
+.band::before{content:""; position:absolute; inset:0; z-index:-2; background:
+  radial-gradient(600px 400px at 85% 15%, rgba(63,208,224,.22), transparent 70%),
+  radial-gradient(520px 380px at 5% 95%, rgba(255,126,95,.18), transparent 70%),
+  radial-gradient(400px 300px at 55% 60%, rgba(255,201,77,.07), transparent 70%)}
+#net{position:absolute; inset:0; width:100%; height:100%; z-index:-1; pointer-events:none}
+.hero{display:grid; grid-template-columns:1.15fr 1fr; gap:var(--s7); align-items:center; padding-block:var(--s8) var(--s7)}
 .hero > *{min-width:0}
-.hero h1{font-size:clamp(2.6rem, 6.4vw, 4.6rem); line-height:.98; font-weight:800}
-.hero h1 em{font-style:normal; color:var(--accent)}
-.lede{font-size:1.25rem; max-width:34ch; color:var(--muted); margin:var(--s5) 0 0}
+.id-row{display:flex; align-items:center; gap:var(--s4); margin-bottom:var(--s5)}
+.avatar{width:58px; height:58px; border-radius:50%; display:grid; place-items:center; font-family:var(--display); font-weight:900; font-size:1.2rem; color:var(--h-bg); background:conic-gradient(from 200deg, var(--h-cloud), var(--h-sun), var(--h-data), var(--h-cloud)); flex:none; position:relative}
+.avatar::after{content:""; position:absolute; inset:-5px; border-radius:50%; border:1px solid var(--h-line)}
+.hi{font-family:var(--mono); font-size:.85rem; color:var(--h-muted)}
+.hi b{color:var(--h-ink); font-weight:500}
+.hero h1{font-size:clamp(2.8rem, 7vw, 5.2rem); line-height:.95; font-weight:900}
+.typed{font-family:var(--display); font-size:clamp(1.3rem, 2.6vw, 1.8rem); font-weight:600; margin:var(--s5) 0 0; color:var(--h-muted); min-height:2.4em}
+.typed .word{color:var(--h-cloud); border-right:3px solid var(--h-sun); padding-right:4px}
+.lede{max-width:46ch; color:var(--h-muted); margin:var(--s3) 0 0}
 .links{display:flex; flex-wrap:wrap; gap:var(--s3); margin-top:var(--s6)}
-.btn{font-family:var(--display); font-weight:600; font-size:.95rem; text-decoration:none; padding:.6rem 1rem; border:1px solid var(--ink); border-radius:999px; background:transparent; color:var(--ink); cursor:pointer; display:inline-flex; gap:.4rem; align-items:center}
-.btn.primary{background:var(--ink); color:var(--bg)}
-.btn:hover{border-color:var(--accent); color:var(--accent)}
-.btn.primary:hover{background:var(--accent); color:var(--bg)}
+.btn{font-family:var(--display); font-weight:600; font-size:.95rem; text-decoration:none; padding:.7rem 1.15rem; border-radius:999px; display:inline-flex; gap:.45rem; align-items:center; border:1px solid var(--h-line); color:var(--h-ink); background:rgba(255,255,255,.04); transition:transform .2s, border-color .2s, background .2s}
+.btn:hover{transform:translateY(-2px); border-color:var(--h-cloud)}
+.btn.primary{background:linear-gradient(90deg, var(--h-cloud), #5BE3B4); color:var(--h-bg); border-color:transparent}
+.btn.primary:hover{box-shadow:0 10px 30px -10px var(--h-cloud)}
+.btn svg{width:16px; height:16px; fill:currentColor}
 
-.outputs{background:var(--panel); border:1px solid var(--line); border-radius:6px; font-family:var(--mono); font-size:.82rem; line-height:1.5; overflow:hidden}
-.outputs header{display:flex; justify-content:space-between; gap:var(--s3); padding:var(--s3) var(--s4); border-bottom:1px solid var(--line); color:var(--muted)}
-.outputs header b{color:var(--accent); font-weight:500}
-.outputs dl{margin:0; padding:var(--s3) var(--s4) var(--s4); display:grid; grid-template-columns:max-content 1fr; gap:.45rem var(--s4)}
-.outputs dt{color:var(--muted)}
-.outputs dd{margin:0; min-width:0}
-.status{display:inline-flex; align-items:center; gap:.45rem}
-.status::before{content:""; width:.5rem; height:.5rem; border-radius:50%; background:var(--accent); box-shadow:0 0 0 3px var(--accent-soft)}
+.term{background:rgba(10,15,30,.72); border:1px solid var(--h-line); border-radius:12px; font-family:var(--mono); font-size:.8rem; line-height:1.55; box-shadow:0 30px 80px -30px rgba(0,0,0,.7), 0 0 0 1px rgba(63,208,224,.08); backdrop-filter:blur(6px); overflow:hidden}
+.term header{display:flex; align-items:center; gap:6px; padding:10px 14px; border-bottom:1px solid var(--h-line); color:var(--h-muted)}
+.term header i{width:10px; height:10px; border-radius:50%; display:block}
+.term header span{margin-left:8px; font-size:.72rem}
+.term .body{padding:14px 16px 16px}
+.cmd{color:var(--h-ink); overflow-wrap:anywhere; margin:0 0 10px}
+.cmd .p{color:var(--h-data)}
+.caret{display:inline-block; width:7px; height:1em; background:var(--h-sun); vertical-align:-2px; margin-left:2px}
+.term dl{margin:0; display:grid; grid-template-columns:max-content 1fr; gap:4px 16px}
+.term dt{color:var(--h-muted)}
+.term dd{margin:0; color:var(--h-ink); min-width:0}
+.term .ok{color:#5BE3B4}
+.term .ok::before{content:"● "}
+
+.stats{display:grid; grid-template-columns:repeat(4, minmax(0,1fr)); border-top:1px solid var(--h-line); margin-top:var(--s6)}
+.stat{padding:var(--s5) var(--s4) var(--s6); border-left:1px solid var(--h-line); min-width:0}
+.stat:first-child{border-left:0; padding-left:0}
+.stat b{display:block; font-family:var(--mono); font-weight:700; font-size:clamp(1.5rem, 3vw, 2.2rem); line-height:1.1; font-variant-numeric:tabular-nums}
+.stat span{font-size:.88rem; color:var(--h-muted)}
+.stat:nth-child(1) b{color:var(--h-cloud)} .stat:nth-child(2) b{color:var(--h-data)} .stat:nth-child(3) b{color:var(--h-sun)} .stat:nth-child(4) b{color:#5BE3B4}
 
 /* sections */
-section{padding-block:var(--s7); border-top:1px solid var(--line)}
+section{padding-block:var(--s8) 0}
 .sec-head{display:flex; justify-content:space-between; align-items:end; gap:var(--s4); flex-wrap:wrap; margin-bottom:var(--s6)}
-.sec-head h2{font-size:clamp(1.8rem, 3.6vw, 2.4rem); font-weight:700; margin-top:var(--s2)}
+.sec-head h2, .about h2{font-size:clamp(2rem, 4vw, 2.8rem); font-weight:800; margin-top:var(--s2)}
 
-.about{display:grid; grid-template-columns:1fr 1.6fr; gap:var(--s7)}
+.about{display:grid; grid-template-columns:1fr 1.5fr; gap:var(--s7)}
 .about > *{min-width:0}
 .about p{margin:0 0 var(--s4); max-width:62ch}
-.about p:first-child::first-line{font-weight:500}
+.about strong{color:var(--ink)}
+.about .hl{background:linear-gradient(transparent 62%, color-mix(in srgb, var(--sun) 35%, transparent) 62%); font-weight:600}
+
+.flow{display:flex; align-items:stretch; margin-top:var(--s7)}
+.node{flex:1 1 0; min-width:0; background:var(--card); border:1px solid var(--line); border-radius:14px; padding:var(--s5); display:flex; flex-direction:column; gap:.4rem; transition:transform .25s, border-color .25s, box-shadow .25s}
+.node:hover{transform:translateY(-4px); border-color:var(--n); box-shadow:0 16px 36px -22px var(--n)}
+.ico{width:44px; height:44px; border-radius:12px; display:grid; place-items:center; background:color-mix(in srgb, var(--n) 15%, transparent); color:var(--n)}
+.ico svg{width:24px; height:24px; fill:none; stroke:currentColor; stroke-width:1.7; stroke-linecap:round; stroke-linejoin:round}
+.node b{font-family:var(--display); font-size:1.1rem; margin-top:.3rem}
+.node span{font-family:var(--mono); font-size:.72rem; color:var(--muted); line-height:1.55}
+.pipe{flex:0 0 40px; align-self:center; height:3px; border-radius:2px; background:repeating-linear-gradient(90deg, var(--a) 0 7px, transparent 7px 13px); background-size:26px 3px}
 
 /* filters */
 .filters{display:flex; gap:var(--s2); flex-wrap:wrap}
-.filters button{font-family:var(--mono); font-size:.8rem; padding:.45rem .8rem; border-radius:999px; border:1px solid var(--line); background:var(--card); color:var(--muted); cursor:pointer}
+.filters button{font-family:var(--mono); font-size:.8rem; padding:.5rem .9rem; border-radius:999px; border:1px solid var(--line); background:var(--card); color:var(--muted); cursor:pointer; display:inline-flex; align-items:center; gap:.45rem; transition:all .2s}
+.filters button i{width:8px; height:8px; border-radius:50%; background:var(--f)}
+.filters button:hover{border-color:var(--f); color:var(--ink)}
 .filters button[aria-pressed="true"]{background:var(--ink); border-color:var(--ink); color:var(--bg)}
+.techbar{display:flex; align-items:center; gap:var(--s3); flex-wrap:wrap; margin:calc(-1 * var(--s4)) 0 var(--s5); font-family:var(--mono); font-size:.85rem; color:var(--muted)}
+.techbar b{color:var(--ink); background:color-mix(in srgb, var(--sun) 25%, transparent); padding:.15rem .5rem; border-radius:6px}
+.techbar button{font-family:var(--mono); font-size:.8rem; border:1px solid var(--line); background:var(--card); color:var(--ink); border-radius:999px; padding:.3rem .7rem; cursor:pointer}
 
+/* project cards */
 .grid{display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:var(--s5)}
-.proj{background:var(--card); border:1px solid var(--line); border-radius:6px; padding:var(--s5); display:flex; flex-direction:column; gap:var(--s4); transition:border-color .2s}
-.proj:hover{border-color:var(--accent)}
-.proj-top{display:flex; justify-content:space-between; gap:var(--s3); font-family:var(--mono); font-size:.75rem; color:var(--muted); text-transform:uppercase; letter-spacing:.08em}
+.proj{--c:var(--cloud); position:relative; background:var(--card); border:1px solid var(--line); border-radius:16px; padding:var(--s5); display:flex; flex-direction:column; gap:var(--s4); overflow:hidden;
+  transform:perspective(1000px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)); transition:transform .25s ease, box-shadow .3s, border-color .3s}
+.proj[data-cat="data"]{--c:var(--data)}
+.proj::after{content:""; position:absolute; inset:0; border-radius:inherit; pointer-events:none; background:radial-gradient(420px circle at var(--mx, 50%) var(--my, 0%), color-mix(in srgb, var(--c) 13%, transparent), transparent 60%); opacity:0; transition:opacity .3s}
+.proj:hover::after{opacity:1}
+.proj:hover{border-color:color-mix(in srgb, var(--c) 55%, var(--line)); box-shadow:0 24px 50px -28px color-mix(in srgb, var(--c) 70%, transparent)}
+.proj.match{border-color:var(--sun)}
+.proj-top{display:flex; justify-content:space-between; gap:var(--s3); font-family:var(--mono); font-size:.72rem; color:var(--muted); text-transform:uppercase; letter-spacing:.08em}
+.proj-top span:first-child{color:var(--c); font-weight:500}
 .result{display:flex; align-items:baseline; gap:var(--s3); flex-wrap:wrap}
-.result b{font-family:var(--mono); font-weight:500; font-size:1.9rem; color:var(--accent); line-height:1; font-variant-numeric:tabular-nums}
+.result b{font-family:var(--mono); font-weight:700; font-size:2rem; color:var(--c); line-height:1; font-variant-numeric:tabular-nums}
 .result span{font-family:var(--mono); font-size:.8rem; color:var(--muted)}
-.proj h3{font-size:1.3rem; font-weight:700; line-height:1.2}
-.proj ul{margin:0; padding-left:1.1rem; display:grid; gap:var(--s2); font-size:1.02rem}
-.proj ul.stack{display:flex; flex-wrap:wrap; gap:.35rem; margin-top:auto; padding-top:var(--s2); padding-left:0}
-.stack li{list-style:none; font-family:var(--mono); font-size:.72rem; padding:.2rem .5rem; border-radius:3px; background:var(--accent-soft); color:var(--ink)}
-.stack{padding-left:0}
-.repo{font-family:var(--display); font-weight:600; font-size:.92rem; color:var(--accent); text-decoration:none; align-self:flex-start}
+.proj h3{font-size:1.32rem; font-weight:700; line-height:1.2}
+.proj ul.pts{margin:0; padding-left:1.1rem; display:grid; gap:var(--s2); font-size:1rem}
+.proj ul.pts li::marker{color:var(--c)}
+.proj ul.stack{display:flex; flex-wrap:wrap; gap:.4rem; margin:auto 0 0; padding:var(--s2) 0 0; list-style:none}
+.tag{font-family:var(--mono); font-size:.72rem; padding:.25rem .55rem; border-radius:6px; border:1px solid transparent; background:color-mix(in srgb, var(--c) 12%, transparent); color:var(--ink); cursor:pointer; transition:all .2s}
+.tag:hover{border-color:var(--c)}
+.tag.on{background:color-mix(in srgb, var(--sun) 30%, transparent); border-color:var(--sun)}
+.repo{font-family:var(--display); font-weight:600; font-size:.95rem; color:var(--c); text-decoration:none; align-self:flex-start; display:inline-flex; gap:.4rem; align-items:center}
+.repo svg{width:16px; height:16px; fill:currentColor}
 .repo:hover{text-decoration:underline}
 .repo.none{color:var(--muted); font-weight:500}
 
-/* timeline */
-.timeline{display:grid; gap:0}
-.role{display:grid; grid-template-columns:13rem 1fr; gap:var(--s5); padding-block:var(--s5); border-top:1px solid var(--line)}
-.role:first-child{border-top:0; padding-top:0}
-.role > *{min-width:0}
-.when{font-family:var(--mono); font-size:.8rem; color:var(--muted); padding-top:.3rem}
-.when .now{display:inline-block; margin-top:.4rem; color:var(--accent)}
-.role h3{font-size:1.2rem; font-weight:700}
-.role .org{font-family:var(--display); color:var(--muted); font-weight:500; font-size:.98rem; margin:.15rem 0 var(--s3)}
-.role ul{margin:0; padding-left:1.1rem; display:grid; gap:var(--s2); max-width:68ch}
-
-/* skills */
-.skills{display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:var(--s5) var(--s6)}
-.skills h3{font-size:.95rem; font-weight:700; margin-bottom:var(--s2)}
-.skills p{margin:0; font-family:var(--mono); font-size:.82rem; line-height:1.7; color:var(--muted)}
-
-/* credentials */
-.creds{display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:var(--s5)}
-.cred{padding:var(--s5); border:1px solid var(--line); border-radius:6px; background:var(--card); display:flex; flex-direction:column; gap:var(--s2)}
-.cred.feature{background:var(--panel)}
-.cred h3{font-size:1.15rem; font-weight:700; line-height:1.25}
-.cred p{margin:0; color:var(--muted); font-size:1rem}
-.cred a{font-family:var(--display); font-weight:600; font-size:.92rem; color:var(--accent); text-decoration:none; margin-top:auto}
-.cred a:hover{text-decoration:underline}
-
-/* contact */
-.contact{display:grid; grid-template-columns:1.3fr 1fr; gap:var(--s7); align-items:end}
-.contact > *{min-width:0}
-.contact h2{font-size:clamp(2rem, 5vw, 3.2rem); font-weight:800; line-height:1.02}
-.contact p{color:var(--muted); max-width:44ch}
-.email{display:flex; align-items:center; gap:var(--s3); flex-wrap:wrap; font-family:var(--mono); font-size:.95rem; padding:var(--s4); border:1px solid var(--line); border-radius:6px; background:var(--card); margin-bottom:var(--s4)}
-.email span{user-select:all; overflow-wrap:anywhere; min-width:0}
-.email button{font-family:var(--display); font-weight:600; font-size:.85rem; border:0; background:var(--accent); color:var(--bg); padding:.4rem .8rem; border-radius:999px; cursor:pointer; margin-left:auto}
-footer{padding-block:var(--s6); border-top:1px solid var(--line); font-family:var(--mono); font-size:.75rem; color:var(--muted); display:flex; justify-content:space-between; gap:var(--s4); flex-wrap:wrap}
-
-body{margin:0}
-[hidden]{display:none !important}
-
-/* avatar + hero flow */
-.id-row{display:flex; align-items:center; gap:var(--s4); margin-bottom:var(--s5)}
-.avatar{width:64px; height:64px; border-radius:50%; background:var(--accent); color:var(--bg); display:grid; place-items:center; font-family:var(--display); font-weight:800; font-size:1.35rem; flex:none; box-shadow:0 0 0 4px var(--accent-soft); overflow:hidden}
-.avatar img{width:100%; height:100%; object-fit:cover}
-.flow{display:flex; align-items:stretch; gap:0; margin-bottom:var(--s7)}
-.node{flex:1 1 0; min-width:0; background:var(--card); border:1px solid var(--line); border-radius:6px; padding:var(--s4); display:flex; flex-direction:column; gap:.35rem}
-.node svg{width:28px; height:28px; color:var(--accent); fill:none; stroke:currentColor; stroke-width:1.6; stroke-linecap:round; stroke-linejoin:round}
-.node b{font-family:var(--display); font-size:1.02rem}
-.node span{font-family:var(--mono); font-size:.72rem; color:var(--muted); line-height:1.5}
-.pipe{flex:0 0 44px; align-self:center; height:2px; background:repeating-linear-gradient(90deg, var(--accent) 0 6px, transparent 6px 12px); background-size:24px 2px}
-@media (prefers-reduced-motion: no-preference){
-  .pipe{animation:flowx 1s linear infinite}
-  @keyframes flowx{to{background-position:24px 0}}
-  .scan{animation:scan 3.2s linear infinite}
-  @keyframes scan{from{stroke-dashoffset:0} to{stroke-dashoffset:-760}}
-}
-
 /* project visuals */
-.proj{overflow:hidden}
-.viz{margin:calc(-1 * var(--s5)) calc(-1 * var(--s5)) 0; background:var(--panel); border-bottom:1px solid var(--line); padding:var(--s3) var(--s4)}
+.viz{margin:calc(-1 * var(--s5)) calc(-1 * var(--s5)) 0; background:color-mix(in srgb, var(--c) 7%, var(--card)); border-bottom:1px solid var(--line); padding:var(--s3) var(--s4)}
 .viz svg{display:block; width:100%; height:auto}
 .viz text{font-family:var(--mono); font-size:8.5px; fill:var(--ink)}
-.viz .tm{fill:var(--muted)} .viz .tb{fill:var(--bg)} .viz .at{fill:var(--accent)}
-.viz .t7{font-size:7.5px} .viz .tt{font-size:9px; font-weight:500}
+.viz .tm{fill:var(--muted)} .viz .tb{fill:var(--card)} .viz .at{fill:var(--c)}
+.viz .t7{font-size:7.5px} .viz .tt{font-size:9px; font-weight:700}
 .viz .bx{fill:var(--card); stroke:var(--line); stroke-width:1}
-.viz .zone{fill:var(--bg); stroke:none}
+.viz .zone{fill:color-mix(in srgb, var(--c) 6%, var(--card)); stroke:none}
 .viz .grp{fill:none; stroke:var(--muted); stroke-dasharray:3 3; stroke-width:.8}
-.viz .agrp{fill:none; stroke:var(--accent); stroke-dasharray:4 3; stroke-width:1}
+.viz .agrp{fill:none; stroke:var(--c); stroke-dasharray:4 3; stroke-width:1}
 .viz .ln{fill:none; stroke:var(--muted); stroke-width:1}
-.viz .aln{fill:none; stroke:var(--accent); stroke-width:1.6}
-.viz .ac{fill:var(--accent)} .viz .soft{fill:var(--accent-soft)} .viz .ink{fill:var(--ink)} .viz .mut{fill:var(--muted)}
+.viz .aln{fill:none; stroke:var(--c); stroke-width:1.6}
+.viz .ac{fill:var(--c)} .viz .soft{fill:color-mix(in srgb, var(--c) 22%, transparent)} .viz .ink{fill:var(--ink)} .viz .mut{fill:var(--muted)}
 .viz .grid{stroke:var(--line); stroke-width:.7}
 .viz .face{fill:none; stroke:var(--ink); stroke-width:1}
 .viz .ecg{fill:none; stroke:var(--ink); stroke-width:1.3; stroke-linejoin:round}
-.viz .scan{fill:none; stroke:var(--accent); stroke-width:2.4; stroke-dasharray:46 714; stroke-linejoin:round}
-.mk{fill:var(--muted)} .mka{fill:var(--accent)}
+.viz .scan{fill:none; stroke:var(--c); stroke-width:2.6; stroke-dasharray:46 714; stroke-linejoin:round}
+.viz .halo{fill:color-mix(in srgb, var(--sun) 35%, transparent)}
+.viz .bulb{fill:var(--sun)}
+.mk{fill:var(--muted)} .mkc{fill:var(--cloud)}
 
-@media (max-width:860px){
+/* experience */
+.timeline{position:relative; display:grid; gap:var(--s5); padding-left:2rem}
+.timeline::before{content:""; position:absolute; left:7px; top:6px; bottom:6px; width:2px; background:linear-gradient(var(--cloud), var(--sun), var(--data)); border-radius:2px}
+.role{position:relative; background:var(--card); border:1px solid var(--line); border-radius:14px; padding:var(--s5); display:grid; grid-template-columns:12rem 1fr; gap:var(--s5)}
+.role > *{min-width:0}
+.role::before{content:""; position:absolute; left:calc(-2rem + 1px); top:1.6rem; width:14px; height:14px; border-radius:50%; background:var(--bg); border:3px solid var(--d)}
+.role.now::before{background:var(--d); box-shadow:0 0 0 6px color-mix(in srgb, var(--d) 25%, transparent)}
+.when{font-family:var(--mono); font-size:.8rem; color:var(--muted); padding-top:.25rem}
+.when .live{display:inline-block; margin-top:.5rem; font-size:.72rem; color:var(--d); border:1px solid var(--d); border-radius:999px; padding:.1rem .55rem}
+.role h3{font-size:1.2rem; font-weight:700}
+.role .org{font-family:var(--display); color:var(--d); font-weight:600; font-size:.98rem; margin:.15rem 0 var(--s3)}
+.role ul{margin:0; padding-left:1.1rem; display:grid; gap:var(--s2); max-width:70ch}
+
+/* skills */
+.hint{font-family:var(--mono); font-size:.8rem; color:var(--muted); margin:0}
+.skills{display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:var(--s5)}
+.sk{background:var(--card); border:1px solid var(--line); border-radius:14px; padding:var(--s5); min-width:0}
+.sk h3{font-size:1rem; font-weight:700; margin-bottom:var(--s3); display:flex; align-items:center; gap:.5rem}
+.sk h3 i{width:10px; height:10px; border-radius:3px; background:var(--k)}
+.chips{display:flex; flex-wrap:wrap; gap:.4rem}
+.chip{font-family:var(--mono); font-size:.75rem; padding:.3rem .6rem; border-radius:999px; border:1px solid var(--line); background:transparent; color:var(--ink); display:inline-flex; align-items:center; gap:.35rem; transition:all .2s}
+.chip[data-tech]{cursor:pointer; border-color:color-mix(in srgb, var(--k) 45%, var(--line)); background:color-mix(in srgb, var(--k) 10%, transparent)}
+.chip[data-tech]:hover{background:var(--k); color:var(--card); border-color:var(--k); transform:translateY(-1px)}
+.chip sup{font-size:.62rem; background:var(--k); color:var(--card); border-radius:999px; padding:0 .35rem; line-height:1.4}
+.chip[data-tech]:hover sup{background:var(--card); color:var(--k)}
+
+/* credentials */
+.creds{display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:var(--s5)}
+.cred{padding:var(--s5); border:1px solid var(--line); border-radius:14px; background:var(--card); display:flex; gap:var(--s4); align-items:flex-start; transition:transform .25s, box-shadow .25s}
+.cred:hover{transform:translateY(-3px); box-shadow:0 18px 40px -26px var(--k)}
+.cred > div{display:flex; flex-direction:column; gap:var(--s2); min-width:0}
+.badge{flex:none; width:56px; height:56px}
+.badge svg{width:100%; height:100%}
+.cred h3{font-size:1.12rem; font-weight:700; line-height:1.25}
+.cred p{margin:0; color:var(--muted); font-size:.98rem}
+.cred a{font-family:var(--display); font-weight:600; font-size:.92rem; color:var(--k); text-decoration:none}
+.cred a:hover{text-decoration:underline}
+
+/* contact band */
+.cta{margin-top:var(--s8)}
+.cta .inner{display:grid; grid-template-columns:1.3fr 1fr; gap:var(--s7); align-items:center; padding-block:var(--s8)}
+.cta .inner > *{min-width:0}
+.cta h2{font-size:clamp(2.2rem, 5.5vw, 3.8rem); font-weight:900; line-height:1}
+.cta p{color:var(--h-muted); max-width:46ch}
+.cta .eyebrow{color:var(--h-muted)}
+.email{display:flex; align-items:center; gap:var(--s3); flex-wrap:wrap; font-family:var(--mono); font-size:.92rem; padding:var(--s4); border:1px solid var(--h-line); border-radius:12px; background:rgba(255,255,255,.04); margin-bottom:var(--s4)}
+.email span{user-select:all; overflow-wrap:anywhere; min-width:0}
+.email button{font-family:var(--display); font-weight:700; font-size:.85rem; border:0; background:var(--h-sun); color:var(--h-bg); padding:.45rem .9rem; border-radius:999px; cursor:pointer; margin-left:auto}
+footer{border-top:1px solid var(--h-line)}
+footer .wrap{padding-block:var(--s5); font-family:var(--mono); font-size:.75rem; color:var(--h-muted); display:flex; justify-content:space-between; gap:var(--s4); flex-wrap:wrap}
+
+/* motion */
+@media (prefers-reduced-motion: no-preference){
+  .rise{animation:rise .7s cubic-bezier(.2,.8,.2,1) both}
+  .d1{animation-delay:.08s} .d2{animation-delay:.16s} .d3{animation-delay:.24s} .d4{animation-delay:.32s}
+  @keyframes rise{from{transform:translateY(14px)}}
+  .caret{animation:blink 1s steps(1) infinite}
+  .typed .word{animation:bcaret 1s steps(1) infinite}
+  @keyframes blink{50%{opacity:0}}
+  @keyframes bcaret{50%{border-color:transparent}}
+  .pipe{animation:flowx 1s linear infinite}
+  @keyframes flowx{to{background-position:26px 0}}
+  .scan{animation:scan 3.2s linear infinite}
+  @keyframes scan{to{stroke-dashoffset:-760}}
+  .flowl{stroke-dasharray:5 4; animation:dash .8s linear infinite}
+  @keyframes dash{to{stroke-dashoffset:-9}}
+  .halo{animation:pulse 2.2s ease-in-out infinite; transform-box:fill-box; transform-origin:center}
+  @keyframes pulse{50%{transform:scale(1.35); opacity:.4}}
+  .drop{animation:fall 1.3s linear infinite}
+  @keyframes fall{0%{transform:translateY(-5px); opacity:.3} 60%{opacity:1} 100%{transform:translateY(7px); opacity:.2}}
+  .viz.grow .bar{animation:growy 1s cubic-bezier(.2,.8,.2,1) both; transform-box:fill-box; transform-origin:bottom}
+  .viz.grow .hbar{animation:growx 1s cubic-bezier(.2,.8,.2,1) both; transform-box:fill-box; transform-origin:left}
+  @keyframes growy{from{transform:scaleY(0)}}
+  @keyframes growx{from{transform:scaleX(0)}}
+  .role.now::before{animation:ping 2s ease-out infinite}
+  @keyframes ping{0%{box-shadow:0 0 0 0 color-mix(in srgb, var(--d) 50%, transparent)} 100%{box-shadow:0 0 0 12px transparent}}
+}
+
+@media (max-width:900px){
+  .hero, .about, .cta .inner{grid-template-columns:1fr; gap:var(--s6)}
+  .hero{padding-block:var(--s7) var(--s5)}
+  .skills{grid-template-columns:repeat(2, minmax(0,1fr))}
   .flow{display:grid; grid-template-columns:1fr 1fr; gap:var(--s3)}
   .pipe{display:none}
-  .hero, .about, .contact{grid-template-columns:1fr; gap:var(--s6)}
-  .hero{padding-block:var(--s7) var(--s6)}
-  .skills{grid-template-columns:repeat(2, minmax(0,1fr))}
+  .stats{grid-template-columns:repeat(2, minmax(0,1fr))}
+  .stat:nth-child(3){border-left:0; padding-left:0}
+  .stat:nth-child(n+3){border-top:1px solid var(--h-line)}
 }
 @media (max-width:640px){
-  body{font-size:1.06rem}
+  body{font-size:1.02rem}
   .grid, .creds, .skills{grid-template-columns:1fr}
   .role{grid-template-columns:1fr; gap:var(--s2)}
-  nav ul{gap:var(--s4); font-size:.88rem}
-  .outputs dl{grid-template-columns:1fr; gap:0}
-  .outputs dd{margin-bottom:.5rem}
-}
-@media (prefers-reduced-motion: no-preference){
-  .proj{animation:rise .5s ease both}
-  @keyframes rise{from{transform:translateY(8px)} to{transform:none}}
+  nav ul{display:none}
+  .term dl{grid-template-columns:1fr; gap:0}
+  .term dd{margin-bottom:6px}
+  section{padding-block:var(--s7) 0}
 }
 </style>
 </head>
 <body>
 
 
-<nav aria-label="Main">
-  <div class="wrap">
-    <a class="mark" href="#top">AKV<span>.</span></a>
-    <ul>
-      <li><a href="#work">Work</a></li>
-      <li><a href="#experience">Experience</a></li>
-      <li><a href="#skills">Skills</a></li>
-      <li><a href="#contact">Contact</a></li>
-    </ul>
-  </div>
-</nav>
+<div class="progress" id="progress" aria-hidden="true"></div>
 
-<main class="wrap" id="top">
-  <header class="hero">
-    <div>
-      <div class="id-row">
-        <div class="avatar" aria-hidden="true">AK</div>
-        <p class="eyebrow" style="margin:0">Cloud · Data pipelines · Machine learning</p>
-      </div>
-      <h1>Anish Kumar Vaswani<em>.</em></h1>
-      <p class="lede">I design cloud infrastructure that stays up, data pipelines that replace manual work, and models I can explain.</p>
-      <div class="links">
-        <a class="btn primary" href="#work">See my work</a>
-        <a class="btn" href="https://github.com/AKV2703" target="_blank" rel="noopener">GitHub</a>
-        <a class="btn" href="https://linkedin.com/in/anish-kumar-vaswani-38162b306" target="_blank" rel="noopener">LinkedIn</a>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <marker id="arr" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0L8 4L0 8z" class="mk"/></marker>
+    <marker id="arrc" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0L8 4L0 8z" class="mkc"/></marker>
+    <pattern id="ecgp" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M10 0H0V10" fill="none" stroke="var(--line)" stroke-width=".5"/></pattern>
+    <symbol id="gh" viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></symbol>
+  </defs>
+</svg>
+
+<div class="band">
+  <canvas id="net" aria-hidden="true"></canvas>
+  <nav aria-label="Main">
+    <div class="wrap">
+      <a class="mark" href="#top">AKV<span>.</span></a>
+      <div class="navr">
+        <ul>
+          <li><a href="#work">Work</a></li>
+          <li><a href="#experience">Experience</a></li>
+          <li><a href="#skills">Skills</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+        <button type="button" class="theme" id="theme" aria-label="Switch colour theme">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8"/></svg>
+        </button>
       </div>
     </div>
-    <aside class="outputs" aria-label="Quick facts">
-      <header><span>anish-profile</span><b>CREATE_COMPLETE</b></header>
-      <dl>
-        <dt>Degree</dt><dd>Bachelor of Computer Science, Deakin University</dd>
-        <dt>Specialisation</dt><dd>Data Science</dd>
-        <dt>Results</dt><dd>High Distinction average</dd>
-        <dt>Scholarship</dt><dd>Vice-Chancellor's Scholarship</dd>
-        <dt>Certification</dt><dd>AWS Solutions Architect - Associate</dd>
-        <dt>Region</dt><dd>Melbourne, VIC</dd>
-        <dt>Status</dt><dd><span class="status">Open to graduate roles</span></dd>
-      </dl>
-    </aside>
+  </nav>
+
+  <header class="wrap" id="top">
+    <div class="hero">
+      <div>
+        <div class="id-row rise">
+          <div class="avatar" aria-hidden="true">AK</div>
+          <div class="hi">Hi, I'm <b>Anish</b> · Melbourne, VIC</div>
+        </div>
+        <h1 class="rise d1">Anish Kumar <span class="grad">Vaswani</span></h1>
+        <p class="typed rise d2" aria-live="polite">I build <span class="word" id="word">cloud infrastructure</span></p>
+        <p class="lede rise d3">Data Science graduate from Deakin University and AWS Certified Solutions Architect, open to graduate roles in cloud, software engineering and data.</p>
+        <div class="links rise d4">
+          <a class="btn primary" href="#work">See my work →</a>
+          <a class="btn" href="https://github.com/AKV2703" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#gh"/></svg>GitHub</a>
+          <a class="btn" href="https://linkedin.com/in/anish-kumar-vaswani-38162b306" target="_blank" rel="noopener">LinkedIn</a>
+        </div>
+      </div>
+      <aside class="term rise d2" aria-label="Quick facts">
+        <header><i style="background:var(--h-data)"></i><i style="background:var(--h-sun)"></i><i style="background:#5BE3B4"></i><span>~/anish</span></header>
+        <div class="body">
+          <p class="cmd"><span class="p">$</span> <span id="cmd">aws cloudformation describe-stacks --stack-name anish</span><span class="caret"></span></p>
+          <dl>
+            <dt>Degree</dt><dd>BCompSc (Data Science), Deakin</dd>
+            <dt>Results</dt><dd>High Distinction average</dd>
+            <dt>Scholarship</dt><dd>Vice-Chancellor's Scholarship</dd>
+            <dt>Certified</dt><dd>AWS Solutions Architect - Associate</dd>
+            <dt>Region</dt><dd>Melbourne, VIC</dd>
+            <dt>Status</dt><dd class="ok">open to graduate roles</dd>
+          </dl>
+        </div>
+      </aside>
+    </div>
+    <div class="stats">
+      <div class="stat"><b>8</b><span>portfolio projects</span></div>
+      <div class="stat"><b>99.83%</b><span>best model accuracy</span></div>
+      <div class="stat"><b>15</b><span>person capstone team led</span></div>
+      <div class="stat"><b>SAA-C03</b><span>AWS certified</span></div>
+    </div>
   </header>
+</div>
 
-  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
-    <defs>
-      <marker id="arr" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0L8 4L0 8z" class="mk"/></marker>
-      <marker id="arra" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0L8 4L0 8z" class="mka"/></marker>
-      <pattern id="ecgp" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M10 0H0V10" fill="none" stroke="var(--line)" stroke-width=".5"/></pattern>
-    </defs>
-  </svg>
-
-  <div class="flow" role="list" aria-label="How my work fits together">
-    <div class="node" role="listitem">
-      <svg viewBox="0 0 24 24" aria-hidden="true"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></svg>
-      <b>Data</b><span>ABS indicators · IoT network flows · ECG signals</span>
-    </div>
-    <div class="pipe" aria-hidden="true"></div>
-    <div class="node" role="listitem">
-      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="4" cy="12" r="2.5"/><circle cx="20" cy="12" r="2.5"/><rect x="9" y="8" width="6" height="8" rx="1"/><path d="M6.5 12H9M15 12h2.5"/></svg>
-      <b>Pipelines</b><span>Python · SharePoint · Power Automate · Power BI</span>
-    </div>
-    <div class="pipe" aria-hidden="true"></div>
-    <div class="node" role="listitem">
-      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="4" cy="7" r="2"/><circle cx="4" cy="17" r="2"/><circle cx="12" cy="5" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="12" cy="19" r="2"/><circle cx="20" cy="12" r="2"/><path d="M6 7l4-2M6 7l4 5M6 17l4-5M6 17l4 2M14 5l4 6M14 12h4M14 19l4-6"/></svg>
-      <b>Models</b><span>PyTorch · Scikit-learn · LoRA fine-tuning</span>
-    </div>
-    <div class="pipe" aria-hidden="true"></div>
-    <div class="node" role="listitem">
-      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 19h10a4 4 0 0 0 .6-7.95A6 6 0 0 0 6.1 10.5 4.25 4.25 0 0 0 7 19z"/></svg>
-      <b>Cloud</b><span>AWS · CloudFormation · Docker · Kubernetes</span>
-    </div>
-  </div>
-
-  <section id="about" aria-labelledby="about-h">
+<main>
+  <section id="about" aria-labelledby="about-h" class="wrap">
     <div class="about">
       <div>
         <p class="eyebrow">About</p>
-        <h2 id="about-h" style="font-size:clamp(1.8rem,3.6vw,2.4rem);margin-top:.5rem">Where the infrastructure meets the data</h2>
+        <h2 id="about-h">Where the infrastructure meets the data</h2>
       </div>
       <div>
-        <p>I'm a Computer Science graduate from Deakin University, specialising in Data Science, with a High Distinction average and a Vice-Chancellor's Scholarship.</p>
-        <p>Cloud and data pipelines are the parts of IT I enjoy most. For Regional Arts Victoria I replaced a manual, site-by-site data collection process with Python pipelines and Power BI dashboards their staff relied on for funding applications. On AWS, I codified a highly available WordPress stack in CloudFormation that stayed up through every failover test I ran.</p>
+        <p>I'm a Computer Science graduate from Deakin University, specialising in Data Science, with a <span class="hl">High Distinction average</span> and a Vice-Chancellor's Scholarship.</p>
+        <p>Cloud and data pipelines are the parts of IT I enjoy most. For Regional Arts Victoria I replaced a manual, site-by-site data collection process with <span class="hl">Python pipelines and Power BI dashboards</span> their staff relied on for funding applications. On AWS, I codified a highly available WordPress stack in CloudFormation that <span class="hl">stayed up through every failover test</span> I ran.</p>
         <p>I'm looking for graduate roles in cloud, software engineering and data, where I can bring AWS Solutions Architect knowledge and a habit of measuring whether things actually work.</p>
+      </div>
+    </div>
+
+    <div class="flow" role="list" aria-label="How my work fits together">
+      <div class="node" role="listitem" style="--n:var(--sun)">
+        <div class="ico"><svg viewBox="0 0 24 24" aria-hidden="true"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></svg></div>
+        <b>Data</b><span>ABS indicators · IoT network flows · ECG signals</span>
+      </div>
+      <div class="pipe" aria-hidden="true" style="--a:var(--sun)"></div>
+      <div class="node" role="listitem" style="--n:var(--data)">
+        <div class="ico"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="4" cy="12" r="2.5"/><circle cx="20" cy="12" r="2.5"/><rect x="9" y="8" width="6" height="8" rx="1"/><path d="M6.5 12H9M15 12h2.5"/></svg></div>
+        <b>Pipelines</b><span>Python · SharePoint · Power Automate · Power BI</span>
+      </div>
+      <div class="pipe" aria-hidden="true" style="--a:var(--data)"></div>
+      <div class="node" role="listitem" style="--n:#8B7CF6">
+        <div class="ico"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="4" cy="7" r="2"/><circle cx="4" cy="17" r="2"/><circle cx="12" cy="5" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="12" cy="19" r="2"/><circle cx="20" cy="12" r="2"/><path d="M6 7l4-2M6 7l4 5M6 17l4-5M6 17l4 2M14 5l4 6M14 12h4M14 19l4-6"/></svg></div>
+        <b>Models</b><span>PyTorch · Scikit-learn · LoRA fine-tuning</span>
+      </div>
+      <div class="pipe" aria-hidden="true" style="--a:#8B7CF6"></div>
+      <div class="node" role="listitem" style="--n:var(--cloud)">
+        <div class="ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 19h10a4 4 0 0 0 .6-7.95A6 6 0 0 0 6.1 10.5 4.25 4.25 0 0 0 7 19z"/></svg></div>
+        <b>Cloud</b><span>AWS · CloudFormation · Docker · Kubernetes</span>
       </div>
     </div>
   </section>
 
-  <section id="work" aria-labelledby="work-h">
+  <section id="work" aria-labelledby="work-h" class="wrap">
     <div class="sec-head">
       <div>
         <p class="eyebrow">Selected work</p>
         <h2 id="work-h">Projects</h2>
       </div>
       <div class="filters" role="group" aria-label="Filter projects">
-        <button type="button" id="f-all" data-filter="all" aria-pressed="true">All (8)</button>
-        <button type="button" id="f-cloud" data-filter="cloud" aria-pressed="false">Cloud &amp; software (4)</button>
-        <button type="button" id="f-data" data-filter="data" aria-pressed="false">Data &amp; ML (4)</button>
+        <button type="button" id="f-all" data-filter="all" aria-pressed="true" style="--f:var(--sun)"><i></i>All (8)</button>
+        <button type="button" id="f-cloud" data-filter="cloud" aria-pressed="false" style="--f:var(--cloud)"><i></i>Cloud &amp; software (4)</button>
+        <button type="button" id="f-data" data-filter="data" aria-pressed="false" style="--f:var(--data)"><i></i>Data &amp; ML (4)</button>
       </div>
+    </div>
+    <div class="techbar" id="techbar" hidden>
+      <span>Showing projects that use <b id="techname"></b></span>
+      <button type="button" id="techclear">Clear ×</button>
     </div>
 
     <div class="grid" id="projects">
       <article class="proj" data-cat="cloud">
-        <figure class="viz" style="margin-bottom:0"><svg viewBox="0 0 320 160" role="img" aria-label="Architecture: users reach an Application Load Balancer inside a VPC, which spreads traffic to EC2 instances in an Auto Scaling group across two Availability Zones, backed by a Multi-AZ RDS primary and standby, with media offloaded to S3.">
+        <figure class="viz"><svg viewBox="0 0 320 160" role="img" aria-label="Architecture: users reach an Application Load Balancer inside a VPC, which spreads traffic to EC2 instances in an Auto Scaling group across two Availability Zones, backed by a Multi-AZ RDS primary and standby, with media offloaded to S3.">
           <text x="136" y="12" text-anchor="middle" class="tm">Users</text>
           <line x1="136" y1="15" x2="136" y2="25" class="ln" marker-end="url(#arr)"/>
           <rect x="6" y="20" width="264" height="134" rx="4" class="grp"/>
@@ -308,8 +420,8 @@ body{margin:0}
           <rect x="36" y="76" width="74" height="18" rx="3" class="bx"/><text x="73" y="88" text-anchor="middle">EC2</text>
           <rect x="162" y="76" width="74" height="18" rx="3" class="bx"/><text x="199" y="88" text-anchor="middle">EC2</text>
           <text x="136" y="107" text-anchor="middle" class="t7 at">Auto Scaling group</text>
-          <line x1="100" y1="44" x2="75" y2="74" class="aln" marker-end="url(#arra)"/>
-          <line x1="172" y1="44" x2="197" y2="74" class="aln" marker-end="url(#arra)"/>
+          <line x1="100" y1="44" x2="75" y2="74" class="aln flowl" marker-end="url(#arrc)"/>
+          <line x1="172" y1="44" x2="197" y2="74" class="aln flowl" marker-end="url(#arrc)"/>
           <line x1="73" y1="94" x2="73" y2="117" class="ln" marker-end="url(#arr)"/>
           <line x1="199" y1="94" x2="199" y2="117" class="ln" marker-end="url(#arr)"/>
           <rect x="36" y="118" width="74" height="22" rx="3" class="bx"/><text x="73" y="132" text-anchor="middle" class="t7">RDS primary</text>
@@ -323,16 +435,16 @@ body{margin:0}
         <div class="proj-top"><span>Cloud · IaC</span><span>May 2026</span></div>
         <div class="result"><b>0</b><span>downtime across repeated failover tests</span></div>
         <h3>Highly Available WordPress on AWS CloudFormation</h3>
-        <ul>
+        <ul class="pts">
           <li>Codified a fault-tolerant WordPress stack (VPC, Application Load Balancer, Auto Scaling across two Availability Zones) in CloudFormation, cutting provisioning from hours of manual console work to one repeatable deployment.</li>
           <li>Terminated live EC2 instances while Auto Scaling launched replacements automatically, backed by Multi-AZ RDS with a read replica and IAM-based S3 media offloading.</li>
         </ul>
-        <ul class="stack"><li>CloudFormation</li><li>VPC</li><li>ALB</li><li>Auto Scaling</li><li>RDS Multi-AZ</li><li>S3</li><li>CloudWatch</li></ul>
-        <a class="repo" href="https://github.com/AKV2703/Wordpress-AWS-CloudFormation" target="_blank" rel="noopener">View repository →</a>
+        <ul class="stack"><li><button type="button" class="tag">CloudFormation</button></li><li><button type="button" class="tag">VPC</button></li><li><button type="button" class="tag">ALB</button></li><li><button type="button" class="tag">Auto Scaling</button></li><li><button type="button" class="tag">RDS Multi-AZ</button></li><li><button type="button" class="tag">S3</button></li><li><button type="button" class="tag">CloudWatch</button></li></ul>
+        <a class="repo" href="https://github.com/AKV2703/Wordpress-AWS-CloudFormation" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#gh"/></svg>View repository →</a>
       </article>
 
       <article class="proj" data-cat="cloud">
-        <figure class="viz" style="margin-bottom:0"><svg viewBox="0 0 320 160" role="img" aria-label="TreeO2 architecture: a frontend calls REST APIs built in Node.js and TypeScript, which use Prisma ORM to reach PostgreSQL, all containerised in Docker and covered by Jest tests.">
+        <figure class="viz"><svg viewBox="0 0 320 160" role="img" aria-label="TreeO2 architecture: a frontend calls REST APIs built in Node.js and TypeScript, which use Prisma ORM to reach PostgreSQL, all containerised in Docker and covered by Jest tests.">
           <line x1="10" y1="126" x2="64" y2="126" class="ln"/>
           <rect x="33" y="94" width="6" height="32" class="mut"/>
           <circle cx="36" cy="78" r="20" class="soft"/><circle cx="24" cy="90" r="12" class="soft"/><circle cx="48" cy="90" r="12" class="soft"/>
@@ -341,7 +453,7 @@ body{margin:0}
           <rect x="84" y="20" width="100" height="24" rx="3" class="bx"/><text x="134" y="35" text-anchor="middle">Frontend</text>
           <rect x="74" y="56" width="238" height="94" rx="4" class="grp"/>
           <text x="304" y="68" text-anchor="end" class="t7 tm">Docker</text>
-          <rect x="84" y="64" width="100" height="28" rx="3" class="bx" style="stroke:var(--accent)"/>
+          <rect x="84" y="64" width="100" height="28" rx="3" class="bx" style="stroke:var(--c)"/>
           <text x="134" y="76" text-anchor="middle" class="tt">REST API</text>
           <text x="134" y="86" text-anchor="middle" class="t7 tm">Node.js · TypeScript</text>
           <rect x="206" y="70" width="60" height="18" rx="3" class="agrp"/><text x="236" y="82" text-anchor="middle" class="t7 at">Jest tests</text>
@@ -349,28 +461,28 @@ body{margin:0}
           <rect x="84" y="110" width="100" height="24" rx="3" class="bx"/><text x="134" y="125" text-anchor="middle">Prisma ORM</text>
           <path d="M216 106V132A30 6 0 0 0 276 132V106" class="bx"/><ellipse cx="246" cy="106" rx="30" ry="6" class="bx"/>
           <text x="246" y="126" text-anchor="middle">PostgreSQL</text>
-          <line x1="134" y1="44" x2="134" y2="63" class="aln" marker-end="url(#arra)"/>
+          <line x1="134" y1="44" x2="134" y2="63" class="aln flowl" marker-end="url(#arrc)"/>
           <line x1="134" y1="92" x2="134" y2="109" class="ln" marker-end="url(#arr)"/>
           <line x1="184" y1="122" x2="215" y2="120" class="ln" marker-end="url(#arr)"/>
         </svg></figure>
         <div class="proj-top"><span>Capstone · Team lead</span><span>March to May 2026</span></div>
         <div class="result"><b>15</b><span>member team led across three lead roles</span></div>
         <h3>TreeO2: tree monitoring &amp; carbon accounting</h3>
-        <ul>
+        <ul class="pts">
           <li>Led the team as Project, API &amp; Backend, and Cloud &amp; DevOps Lead, running sprints, code reviews and stakeholder communication to deliver TreeO2 for Xpand Foundation.</li>
           <li>Shipped the secure REST APIs and core backend modules the frontend ran on, with Jest unit and integration tests catching regressions before release.</li>
         </ul>
-        <ul class="stack"><li>Node.js</li><li>TypeScript</li><li>Prisma ORM</li><li>PostgreSQL</li><li>Docker</li><li>Jest</li></ul>
+        <ul class="stack"><li><button type="button" class="tag">Node.js</button></li><li><button type="button" class="tag">TypeScript</button></li><li><button type="button" class="tag">Prisma ORM</button></li><li><button type="button" class="tag">PostgreSQL</button></li><li><button type="button" class="tag">Docker</button></li><li><button type="button" class="tag">Jest</button></li></ul>
         <span class="repo none">Client project, private repository</span>
       </article>
 
       <article class="proj" data-cat="data">
-        <figure class="viz" style="margin-bottom:0"><svg viewBox="0 0 320 160" role="img" aria-label="Bar chart: perplexity fell from 72.5 for pretrained DistilGPT-2 to 62.3 after fine-tuning. LoRA matched full fine-tuning while training about 3 to 4 percent of parameters in roughly half the time.">
+        <figure class="viz"><svg viewBox="0 0 320 160" role="img" aria-label="Bar chart: perplexity fell from 72.5 for pretrained DistilGPT-2 to 62.3 after fine-tuning. LoRA matched full fine-tuning while training about 3 to 4 percent of parameters in roughly half the time.">
           <text x="8" y="14" class="tm">Perplexity (lower is better)</text>
           <g class="grid"><line x1="48" y1="130" x2="220" y2="130"/><line x1="48" y1="105" x2="220" y2="105"/><line x1="48" y1="80" x2="220" y2="80"/><line x1="48" y1="55" x2="220" y2="55"/><line x1="48" y1="30" x2="220" y2="30"/></g>
           <g class="t7 tm" text-anchor="end"><text x="44" y="133">0</text><text x="44" y="108">20</text><text x="44" y="83">40</text><text x="44" y="58">60</text><text x="44" y="33">80</text></g>
-          <rect x="64" y="39.4" width="56" height="90.6" class="soft"/>
-          <rect x="144" y="52.1" width="56" height="77.9" class="ac"/>
+          <rect x="64" y="39.4" width="56" height="90.6" rx="2" class="soft bar"/>
+          <rect x="144" y="52.1" width="56" height="77.9" rx="2" class="ac bar"/>
           <text x="92" y="35" text-anchor="middle" class="tt">72.5</text>
           <text x="172" y="48" text-anchor="middle" class="tt at">62.3</text>
           <text x="92" y="144" text-anchor="middle" class="t7">Pretrained</text>
@@ -384,72 +496,72 @@ body{margin:0}
         <div class="proj-top"><span>NLP · LLM fine-tuning</span><span>October 2025</span></div>
         <div class="result"><b>72.5 → 62.3</b><span>perplexity, 14% lower than baseline</span></div>
         <h3>GPT-2 Domain Fine-Tuning with LoRA</h3>
-        <ul>
+        <ul class="pts">
           <li>Fine-tuned DistilGPT-2 on domain-specific scientific text with both full fine-tuning and LoRA, so the model better predicted domain language.</li>
           <li>Benchmarked both approaches on BLEU, ROUGE and BERTScore, showing LoRA could match full fine-tuning while training only ~3-4% of parameters in roughly half the time.</li>
         </ul>
-        <ul class="stack"><li>PyTorch</li><li>Hugging Face</li><li>PEFT (LoRA)</li><li>NLP</li></ul>
-        <a class="repo" href="https://github.com/AKV2703/gpt2-domain-finetuning-lora" target="_blank" rel="noopener">View repository →</a>
+        <ul class="stack"><li><button type="button" class="tag">Python</button></li><li><button type="button" class="tag">PyTorch</button></li><li><button type="button" class="tag">Hugging Face</button></li><li><button type="button" class="tag">PEFT (LoRA)</button></li><li><button type="button" class="tag">NLP</button></li></ul>
+        <a class="repo" href="https://github.com/AKV2703/gpt2-domain-finetuning-lora" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#gh"/></svg>View repository →</a>
       </article>
 
       <article class="proj" data-cat="data">
-        <figure class="viz" style="margin-bottom:0"><svg viewBox="0 0 320 160" role="img" aria-label="Bar chart comparing accuracy and macro F1: Random Forest 99.83 percent accuracy and 0.956 macro F1; AdaBoost 97.65 percent accuracy but only 0.625 macro F1.">
+        <figure class="viz"><svg viewBox="0 0 320 160" role="img" aria-label="Bar chart comparing accuracy and macro F1: Random Forest 99.83 percent accuracy and 0.956 macro F1; AdaBoost 97.65 percent accuracy but only 0.625 macro F1.">
           <text x="8" y="14" class="tm">Accuracy can hide rare-class failure</text>
           <g class="grid"><line x1="90" y1="26" x2="90" y2="110"/><line x1="195" y1="26" x2="195" y2="110"/><line x1="300" y1="26" x2="300" y2="110"/></g>
           <g class="t7 tm" text-anchor="middle"><text x="90" y="120">0</text><text x="195" y="120">50</text><text x="300" y="120">100</text></g>
           <text x="82" y="50" text-anchor="end">Random Forest</text>
-          <rect x="90" y="34" width="209.6" height="12" class="ac"/><text x="295" y="43" text-anchor="end" class="t7 tb">99.83%</text>
-          <rect x="90" y="48" width="200.8" height="12" class="soft"/><text x="286" y="57" text-anchor="end" class="t7">0.956</text>
+          <rect x="90" y="34" width="209.6" height="12" rx="2" class="ac hbar"/><text x="295" y="43" text-anchor="end" class="t7 tb">99.83%</text>
+          <rect x="90" y="48" width="200.8" height="12" rx="2" class="soft hbar"/><text x="286" y="57" text-anchor="end" class="t7">0.956</text>
           <text x="82" y="98" text-anchor="end">AdaBoost</text>
-          <rect x="90" y="82" width="205.1" height="12" class="ac"/><text x="291" y="91" text-anchor="end" class="t7 tb">97.65%</text>
-          <rect x="90" y="96" width="131.3" height="12" class="soft"/><text x="217" y="105" text-anchor="end" class="t7">0.625</text>
+          <rect x="90" y="82" width="205.1" height="12" rx="2" class="ac hbar"/><text x="291" y="91" text-anchor="end" class="t7 tb">97.65%</text>
+          <rect x="90" y="96" width="131.3" height="12" rx="2" class="soft hbar"/><text x="217" y="105" text-anchor="end" class="t7">0.625</text>
           <text x="228" y="105" class="t7 at">← hidden gap</text>
-          <rect x="90" y="132" width="8" height="8" class="ac"/><text x="102" y="139" class="t7">Accuracy</text>
-          <rect x="160" y="132" width="8" height="8" class="soft"/><text x="172" y="139" class="t7">Macro F1 (×100)</text>
+          <rect x="90" y="132" width="8" height="8" rx="1" class="ac"/><text x="102" y="139" class="t7">Accuracy</text>
+          <rect x="160" y="132" width="8" height="8" rx="1" class="soft"/><text x="172" y="139" class="t7">Macro F1 (×100)</text>
         </svg></figure>
         <div class="proj-top"><span>Classification · Security</span><span>May 2025</span></div>
         <div class="result"><b>99.83%</b><span>accuracy, 0.956 macro F1, 12 attack classes</span></div>
         <h3>IoT Network Intrusion Detection</h3>
-        <ul>
+        <ul class="pts">
           <li>Tuned and compared 7 classification models across 123K+ IoT network-flow records, selecting a tuned Random Forest as the strongest detector.</li>
           <li>Paired permutation importance with Mean Decrease in Impurity to explain conflicting feature rankings, and exposed AdaBoost's 0.625 macro F1 hidden behind 97.65% accuracy.</li>
         </ul>
-        <ul class="stack"><li>Scikit-learn</li><li>Random Forest</li><li>GridSearchCV</li><li>Feature importance</li></ul>
-        <a class="repo" href="https://github.com/AKV2703/iot-network-intrusion-detection" target="_blank" rel="noopener">View repository →</a>
+        <ul class="stack"><li><button type="button" class="tag">Python</button></li><li><button type="button" class="tag">Scikit-learn</button></li><li><button type="button" class="tag">Random Forest</button></li><li><button type="button" class="tag">GridSearchCV</button></li><li><button type="button" class="tag">Feature importance</button></li></ul>
+        <a class="repo" href="https://github.com/AKV2703/iot-network-intrusion-detection" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#gh"/></svg>View repository →</a>
       </article>
 
       <article class="proj" data-cat="cloud">
-        <figure class="viz" style="margin-bottom:0"><svg viewBox="0 0 320 160" role="img" aria-label="Five sensors feed a Decision service that switches the lights, with a Logging service and a Node-RED Override service, all running on Kubernetes on AWS EC2.">
+        <figure class="viz"><svg viewBox="0 0 320 160" role="img" aria-label="Five sensors feed a Decision service that switches the lights, with a Logging service and a Node-RED Override service, all running on Kubernetes on AWS EC2.">
           <g class="ac"><circle cx="24" cy="30" r="4"/><circle cx="24" cy="55" r="4"/><circle cx="24" cy="80" r="4"/><circle cx="24" cy="105" r="4"/><circle cx="24" cy="130" r="4"/></g>
           <g class="ln"><line x1="28" y1="30" x2="78" y2="76"/><line x1="28" y1="55" x2="78" y2="78"/><line x1="28" y1="80" x2="78" y2="80"/><line x1="28" y1="105" x2="78" y2="82"/><line x1="28" y1="130" x2="78" y2="84"/></g>
           <text x="24" y="150" text-anchor="middle" class="t7 tm">5 sensors</text>
           <rect x="68" y="16" width="176" height="126" rx="4" class="grp"/>
           <text x="156" y="154" text-anchor="middle" class="t7 tm">Kubernetes on AWS EC2</text>
-          <rect x="78" y="68" width="70" height="24" rx="3" class="bx" style="stroke:var(--accent)"/><text x="113" y="83" text-anchor="middle" class="tt">Decision</text>
+          <rect x="78" y="68" width="70" height="24" rx="3" class="bx" style="stroke:var(--c)"/><text x="113" y="83" text-anchor="middle" class="tt">Decision</text>
           <rect x="166" y="26" width="68" height="28" rx="3" class="bx"/><text x="200" y="38" text-anchor="middle">Override</text><text x="200" y="48" text-anchor="middle" class="t7 tm">Node-RED</text>
           <rect x="166" y="108" width="68" height="22" rx="3" class="bx"/><text x="200" y="122" text-anchor="middle">Logging</text>
           <line x1="148" y1="74" x2="165" y2="46" class="ln" marker-end="url(#arr)"/>
           <line x1="148" y1="86" x2="165" y2="114" class="ln" marker-end="url(#arr)"/>
-          <line x1="148" y1="80" x2="255" y2="80" class="aln" marker-end="url(#arra)"/>
+          <line x1="148" y1="80" x2="253" y2="80" class="aln flowl" marker-end="url(#arrc)"/>
           <line x1="234" y1="44" x2="261" y2="68" class="ln" stroke-dasharray="2 2" marker-end="url(#arr)"/>
-          <circle cx="274" cy="80" r="13" class="ac"/>
+          <circle cx="274" cy="80" r="15" class="halo"/>
+          <circle cx="274" cy="80" r="12" class="bulb"/>
           <rect x="268" y="93" width="12" height="8" rx="1" class="mut"/>
-          <g class="aln" style="stroke-width:1.2"><line x1="274" y1="58" x2="274" y2="52"/><line x1="292" y1="66" x2="297" y2="62"/><line x1="296" y1="80" x2="303" y2="80"/><line x1="292" y1="94" x2="297" y2="98"/></g>
           <text x="274" y="118" text-anchor="middle" class="t7 tm">Lights</text>
         </svg></figure>
         <div class="proj-top"><span>IoT · Microservices</span><span>September 2025</span></div>
         <div class="result"><b>5</b><span>simulated sensors driving live decisions</span></div>
         <h3>Smart Home Lighting System</h3>
-        <ul>
+        <ul class="pts">
           <li>Automated real-time lighting decisions through a Decision, Logging and Override microservices pipeline, so lights responded to sensor data without manual switching.</li>
           <li>Gave users manual control through a Node-RED override dashboard, and containerised the full stack with Docker and Kubernetes on AWS EC2 for repeatable deployment.</li>
         </ul>
-        <ul class="stack"><li>Node.js</li><li>Express</li><li>MongoDB Atlas</li><li>Docker</li><li>Kubernetes</li><li>AWS EC2</li></ul>
-        <a class="repo" href="https://github.com/AKV2703/SIT314-Smart-Lighting-Project" target="_blank" rel="noopener">View repository →</a>
+        <ul class="stack"><li><button type="button" class="tag">Node.js</button></li><li><button type="button" class="tag">Express</button></li><li><button type="button" class="tag">MongoDB Atlas</button></li><li><button type="button" class="tag">Docker</button></li><li><button type="button" class="tag">Kubernetes</button></li><li><button type="button" class="tag">AWS EC2</button></li></ul>
+        <a class="repo" href="https://github.com/AKV2703/SIT314-Smart-Lighting-Project" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#gh"/></svg>View repository →</a>
       </article>
 
       <article class="proj" data-cat="data">
-        <figure class="viz" style="margin-bottom:0"><svg viewBox="0 0 320 160" role="img" aria-label="Illustrative ECG trace on chart paper, with one irregular heartbeat boxed to show per-beat classification.">
+        <figure class="viz"><svg viewBox="0 0 320 160" role="img" aria-label="Illustrative ECG trace on chart paper, with one irregular heartbeat boxed to show per-beat classification.">
           <rect x="0" y="20" width="320" height="120" fill="url(#ecgp)"/>
           <text x="8" y="13" class="tm">MIT-BIH · 5 classes · 100K+ beats</text>
           <polyline class="ecg" points="0,90 10,90 14,84 18,90 24,90 27,95 30,40 33,102 36,90 46,90 52,78 58,90 80,90 90,90 94,84 98,90 104,90 107,95 110,40 113,102 116,90 126,90 132,78 138,90 160,90 174,90 180,52 188,114 194,90 204,82 212,90 240,90 250,90 254,84 258,90 264,90 267,95 270,40 273,102 276,90 286,90 292,78 298,90 320,90"/>
@@ -461,21 +573,21 @@ body{margin:0}
         <div class="proj-top"><span>Deep learning · Health</span><span>July 2025</span></div>
         <div class="result"><b>98.9%</b><span>accuracy on 100K+ ECG heartbeats</span></div>
         <h3>ECG Arrhythmia Classification</h3>
-        <ul>
+        <ul class="pts">
           <li>Built a feedforward network classifying 5 arrhythmia types from MIT-BIH data, with class-weighted loss and a dropout sweep to counter a ~6,000:1 class imbalance.</li>
           <li>Traced why minority-class F1 stayed low (0-0.35) by visualising hidden activations layer by layer with UMAP, locating the gap at the representation level.</li>
         </ul>
-        <ul class="stack"><li>PyTorch</li><li>Scikit-learn</li><li>UMAP</li><li>TensorBoard</li></ul>
-        <a class="repo" href="https://github.com/AKV2703/ecg-arrhythmia-classification" target="_blank" rel="noopener">View repository →</a>
+        <ul class="stack"><li><button type="button" class="tag">Python</button></li><li><button type="button" class="tag">PyTorch</button></li><li><button type="button" class="tag">Scikit-learn</button></li><li><button type="button" class="tag">UMAP</button></li><li><button type="button" class="tag">TensorBoard</button></li></ul>
+        <a class="repo" href="https://github.com/AKV2703/ecg-arrhythmia-classification" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#gh"/></svg>View repository →</a>
       </article>
 
       <article class="proj" data-cat="data">
-        <figure class="viz" style="margin-bottom:0"><svg viewBox="0 0 320 160" role="img" aria-label="Bar chart: cross-domain macro F1 rose from 10.4 percent for the baseline CNN to 23.8 percent with ResNet-18 transfer learning, across 6 emotion classes.">
+        <figure class="viz"><svg viewBox="0 0 320 160" role="img" aria-label="Bar chart: cross-domain macro F1 rose from 10.4 percent for the baseline CNN to 23.8 percent with ResNet-18 transfer learning, across 6 emotion classes.">
           <text x="8" y="14" class="tm">Cross-domain macro F1 (%)</text>
           <g class="grid"><line x1="48" y1="130" x2="236" y2="130"/><line x1="48" y1="96.7" x2="236" y2="96.7"/><line x1="48" y1="63.3" x2="236" y2="63.3"/><line x1="48" y1="30" x2="236" y2="30"/></g>
           <g class="t7 tm" text-anchor="end"><text x="44" y="133">0</text><text x="44" y="99.7">10</text><text x="44" y="66.3">20</text><text x="44" y="33">30</text></g>
-          <rect x="70" y="95.3" width="56" height="34.7" class="soft"/>
-          <rect x="158" y="50.7" width="56" height="79.3" class="ac"/>
+          <rect x="70" y="95.3" width="56" height="34.7" rx="2" class="soft bar"/>
+          <rect x="158" y="50.7" width="56" height="79.3" rx="2" class="ac bar"/>
           <text x="98" y="91" text-anchor="middle" class="tt">10.4</text>
           <text x="186" y="46" text-anchor="middle" class="tt at">23.8</text>
           <text x="98" y="144" text-anchor="middle" class="t7">Baseline CNN</text>
@@ -493,51 +605,51 @@ body{margin:0}
         <div class="proj-top"><span>Computer vision</span><span>September 2025</span></div>
         <div class="result"><b>10.4% → 23.8%</b><span>cross-domain macro F1</span></div>
         <h3>Facial Emotion Recognition &amp; Domain Generalisation</h3>
-        <ul>
+        <ul class="pts">
           <li>More than doubled a 6-class emotion CNN's cross-domain macro F1 with ResNet-18 transfer learning, after diagnosing class imbalance and domain shift as its main failure modes.</li>
           <li>Reproduced a published Parallel CNN (PDCNN) for brain tumour MRI classification at 90.6% accuracy, within 5 points of the original paper.</li>
         </ul>
-        <ul class="stack"><li>PyTorch</li><li>ResNet-18</li><li>Transfer learning</li><li>Torchvision</li></ul>
-        <a class="repo" href="https://github.com/AKV2703/emotion-cnn-domain-generalization" target="_blank" rel="noopener">View repository →</a>
+        <ul class="stack"><li><button type="button" class="tag">Python</button></li><li><button type="button" class="tag">PyTorch</button></li><li><button type="button" class="tag">ResNet-18</button></li><li><button type="button" class="tag">Transfer learning</button></li><li><button type="button" class="tag">Torchvision</button></li></ul>
+        <a class="repo" href="https://github.com/AKV2703/emotion-cnn-domain-generalization" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#gh"/></svg>View repository →</a>
       </article>
 
       <article class="proj" data-cat="cloud">
-        <figure class="viz" style="margin-bottom:0"><svg viewBox="0 0 320 160" role="img" aria-label="Three sensors feed a C++ controller running synchronised concurrent threads, which triggers a sprinkler.">
+        <figure class="viz"><svg viewBox="0 0 320 160" role="img" aria-label="Three sensors feed a C++ controller running synchronised concurrent threads, which triggers a sprinkler.">
           <rect x="12" y="30" width="58" height="20" rx="3" class="bx"/><text x="41" y="43" text-anchor="middle" class="t7">Sensor A</text>
           <rect x="12" y="70" width="58" height="20" rx="3" class="bx"/><text x="41" y="83" text-anchor="middle" class="t7">Sensor B</text>
           <rect x="12" y="110" width="58" height="20" rx="3" class="bx"/><text x="41" y="123" text-anchor="middle" class="t7">Sensor C</text>
           <line x1="70" y1="40" x2="129" y2="72" class="ln" marker-end="url(#arr)"/>
           <line x1="70" y1="80" x2="129" y2="80" class="ln" marker-end="url(#arr)"/>
           <line x1="70" y1="120" x2="129" y2="88" class="ln" marker-end="url(#arr)"/>
-          <rect x="130" y="52" width="80" height="56" rx="4" class="bx" style="stroke:var(--accent)"/>
+          <rect x="130" y="52" width="80" height="56" rx="4" class="bx" style="stroke:var(--c)"/>
           <text x="170" y="68" text-anchor="middle" class="tt">C++ controller</text>
-          <line x1="142" y1="82" x2="198" y2="82" class="aln" style="stroke-width:1"/><circle cx="160" cy="82" r="2" class="ac"/>
-          <line x1="142" y1="94" x2="198" y2="94" class="aln" style="stroke-width:1"/><circle cx="182" cy="94" r="2" class="ac"/>
+          <line x1="142" y1="82" x2="198" y2="82" class="aln flowl" style="stroke-width:1"/><circle cx="160" cy="82" r="2" class="ac"/>
+          <line x1="142" y1="94" x2="198" y2="94" class="aln flowl" style="stroke-width:1"/><circle cx="182" cy="94" r="2" class="ac"/>
           <text x="170" y="122" text-anchor="middle" class="t7 tm">synchronised threads</text>
-          <line x1="210" y1="80" x2="255" y2="64" class="aln" marker-end="url(#arra)"/>
+          <line x1="210" y1="80" x2="255" y2="64" class="aln" marker-end="url(#arrc)"/>
           <line x1="270" y1="22" x2="270" y2="56" class="ln" style="stroke-width:3"/>
           <path d="M258 56H282L276 64H264Z" class="ac"/>
-          <g class="soft" style="stroke:var(--accent); stroke-width:.6">
-            <path d="M262 76q-3 5 0 6q3-1 0-6z"/><path d="M270 82q-3 5 0 6q3-1 0-6z"/><path d="M278 76q-3 5 0 6q3-1 0-6z"/>
-            <path d="M256 92q-3 5 0 6q3-1 0-6z"/><path d="M270 98q-3 5 0 6q3-1 0-6z"/><path d="M284 92q-3 5 0 6q3-1 0-6z"/>
-            <path d="M262 110q-3 5 0 6q3-1 0-6z"/><path d="M278 110q-3 5 0 6q3-1 0-6z"/>
+          <g class="soft" style="stroke:var(--c); stroke-width:.6">
+            <path class="drop" d="M262 76q-3 5 0 6q3-1 0-6z"/><path class="drop" style="animation-delay:.3s" d="M270 82q-3 5 0 6q3-1 0-6z"/><path class="drop" style="animation-delay:.6s" d="M278 76q-3 5 0 6q3-1 0-6z"/>
+            <path class="drop" style="animation-delay:.9s" d="M256 92q-3 5 0 6q3-1 0-6z"/><path class="drop" style="animation-delay:.2s" d="M270 98q-3 5 0 6q3-1 0-6z"/><path class="drop" style="animation-delay:.5s" d="M284 92q-3 5 0 6q3-1 0-6z"/>
+            <path class="drop" style="animation-delay:.8s" d="M262 110q-3 5 0 6q3-1 0-6z"/><path class="drop" style="animation-delay:.4s" d="M278 110q-3 5 0 6q3-1 0-6z"/>
           </g>
           <text x="270" y="138" text-anchor="middle" class="t7 tm">Sprinkler</text>
         </svg></figure>
         <div class="proj-top"><span>Real-time systems</span><span>May 2024</span></div>
         <div class="result"><b>C++</b><span>concurrent sensor-to-actuator response</span></div>
         <h3>Fire Detection &amp; Extinguishing System</h3>
-        <ul>
+        <ul class="pts">
           <li>Developed a C++ system that triggered sprinkler actuation in real time from concurrently handled sensor inputs, linking detection directly to response.</li>
           <li>Synchronised sensor readings and actuator responses to prevent race conditions, keeping detection reliable under simultaneous sensor events.</li>
         </ul>
-        <ul class="stack"><li>C++</li><li>Concurrency</li><li>Embedded sensors</li><li>Actuators</li></ul>
+        <ul class="stack"><li><button type="button" class="tag">C++</button></li><li><button type="button" class="tag">Concurrency</button></li><li><button type="button" class="tag">Embedded sensors</button></li><li><button type="button" class="tag">Actuators</button></li></ul>
         <span class="repo none">University unit project</span>
       </article>
     </div>
   </section>
 
-  <section id="experience" aria-labelledby="exp-h">
+  <section id="experience" aria-labelledby="exp-h" class="wrap">
     <div class="sec-head">
       <div>
         <p class="eyebrow">Experience &amp; research</p>
@@ -545,8 +657,8 @@ body{margin:0}
       </div>
     </div>
     <div class="timeline">
-      <div class="role">
-        <div class="when">January 2024<br>to Present<br><span class="now">● Current</span></div>
+      <div class="role now" style="--d:var(--cloud)">
+        <div class="when">January 2024<br>to Present<br><span class="live">Current role</span></div>
         <div>
           <h3>Console Operator</h3>
           <p class="org">7-Eleven, Croydon</p>
@@ -556,7 +668,7 @@ body{margin:0}
           </ul>
         </div>
       </div>
-      <div class="role">
+      <div class="role" style="--d:var(--sun)">
         <div class="when">March 2026<br>to May 2026</div>
         <div>
           <h3>Student IT Coordinator</h3>
@@ -567,7 +679,7 @@ body{margin:0}
           </ul>
         </div>
       </div>
-      <div class="role">
+      <div class="role" style="--d:var(--data)">
         <div class="when">November 2025<br>to February 2026</div>
         <div>
           <h3>Research Program: Tiny Federated Learning</h3>
@@ -581,24 +693,37 @@ body{margin:0}
     </div>
   </section>
 
-  <section id="skills" aria-labelledby="skills-h">
+  <section id="skills" aria-labelledby="skills-h" class="wrap">
     <div class="sec-head">
       <div>
         <p class="eyebrow">Toolkit</p>
         <h2 id="skills-h">Skills</h2>
       </div>
+      <p class="hint">Click a skill with a number to see the projects that use it.</p>
     </div>
     <div class="skills">
-      <div><h3>Cloud &amp; DevOps</h3><p>AWS (EC2, VPC, RDS, S3, IAM, CloudWatch, Auto Scaling, ALB, EKS, Lambda, Step Functions), CloudFormation, Linux, Docker, Kubernetes, Jenkins</p></div>
-      <div><h3>Data &amp; ML</h3><p>Pandas, NumPy, Scikit-learn, PyTorch, TensorFlow, Hugging Face, Power BI, Power Automate</p></div>
-      <div><h3>Back-end &amp; databases</h3><p>Node.js, Express, REST APIs, Microservices, Prisma ORM, PostgreSQL, MySQL, Oracle, MongoDB</p></div>
-      <div><h3>Languages</h3><p>Python, SQL, JavaScript, TypeScript, C#, C++</p></div>
-      <div><h3>Tools &amp; testing</h3><p>Git, GitHub, Jest, Postman, Jira, Technical documentation</p></div>
-      <div><h3>Front-end</h3><p>React, HTML, CSS</p></div>
+      <div class="sk" style="--k:var(--cloud)"><h3><i></i>Cloud &amp; DevOps</h3><div class="chips">
+        <button type="button" class="chip">AWS EC2</button><button type="button" class="chip">VPC</button><button type="button" class="chip">ALB</button><button type="button" class="chip">Auto Scaling</button><button type="button" class="chip">RDS Multi-AZ</button><button type="button" class="chip">S3</button><button type="button" class="chip">IAM</button><button type="button" class="chip">CloudWatch</button><button type="button" class="chip">EKS</button><button type="button" class="chip">Lambda</button><button type="button" class="chip">Step Functions</button><button type="button" class="chip">CloudFormation</button><button type="button" class="chip">Linux</button><button type="button" class="chip">Docker</button><button type="button" class="chip">Kubernetes</button><button type="button" class="chip">Jenkins</button>
+      </div></div>
+      <div class="sk" style="--k:var(--data)"><h3><i></i>Data &amp; ML</h3><div class="chips">
+        <button type="button" class="chip">PyTorch</button><button type="button" class="chip">Scikit-learn</button><button type="button" class="chip">Hugging Face</button><button type="button" class="chip">PEFT (LoRA)</button><button type="button" class="chip">Pandas</button><button type="button" class="chip">NumPy</button><button type="button" class="chip">TensorFlow</button><button type="button" class="chip">UMAP</button><button type="button" class="chip">TensorBoard</button><button type="button" class="chip">Power BI</button><button type="button" class="chip">Power Automate</button>
+      </div></div>
+      <div class="sk" style="--k:#8B7CF6"><h3><i></i>Back-end &amp; databases</h3><div class="chips">
+        <button type="button" class="chip">Node.js</button><button type="button" class="chip">Express</button><button type="button" class="chip">REST APIs</button><button type="button" class="chip">Prisma ORM</button><button type="button" class="chip">PostgreSQL</button><button type="button" class="chip">MySQL</button><button type="button" class="chip">Oracle</button><button type="button" class="chip">MongoDB Atlas</button>
+      </div></div>
+      <div class="sk" style="--k:var(--sun)"><h3><i></i>Languages</h3><div class="chips">
+        <button type="button" class="chip">Python</button><button type="button" class="chip">SQL</button><button type="button" class="chip">JavaScript</button><button type="button" class="chip">TypeScript</button><button type="button" class="chip">C#</button><button type="button" class="chip">C++</button>
+      </div></div>
+      <div class="sk" style="--k:#2FB57A"><h3><i></i>Tools &amp; testing</h3><div class="chips">
+        <button type="button" class="chip">Git</button><button type="button" class="chip">GitHub</button><button type="button" class="chip">Jest</button><button type="button" class="chip">Postman</button><button type="button" class="chip">Jira</button>
+      </div></div>
+      <div class="sk" style="--k:#E255A1"><h3><i></i>Front-end</h3><div class="chips">
+        <button type="button" class="chip">React</button><button type="button" class="chip">HTML</button><button type="button" class="chip">CSS</button>
+      </div></div>
     </div>
   </section>
 
-  <section id="credentials" aria-labelledby="cred-h">
+  <section id="credentials" aria-labelledby="cred-h" class="wrap">
     <div class="sec-head">
       <div>
         <p class="eyebrow">Education &amp; certifications</p>
@@ -606,78 +731,223 @@ body{margin:0}
       </div>
     </div>
     <div class="creds">
-      <div class="cred feature">
-        <span class="eyebrow">July 2023 to June 2026</span>
-        <h3>Bachelor of Computer Science, Deakin University</h3>
-        <p>Specialisation in Data Science. High Distinction average, Vice-Chancellor's Scholarship.</p>
+      <div class="cred" style="--k:var(--sun)">
+        <div class="badge"><svg viewBox="0 0 56 56" aria-hidden="true"><circle cx="28" cy="28" r="26" fill="color-mix(in srgb, var(--sun) 18%, transparent)"/><path d="M12 24L28 16L44 24L28 32Z" fill="var(--sun)"/><path d="M19 28V36C19 38 23 41 28 41S37 38 37 36V28L28 32Z" fill="none" stroke="var(--sun)" stroke-width="2"/><path d="M44 24V33" stroke="var(--sun)" stroke-width="2"/></svg></div>
+        <div>
+          <span class="eyebrow">July 2023 to June 2026</span>
+          <h3>Bachelor of Computer Science, Deakin University</h3>
+          <p>Specialisation in Data Science. High Distinction average, Vice-Chancellor's Scholarship.</p>
+        </div>
       </div>
-      <div class="cred feature">
-        <span class="eyebrow">September 2026 · Valid to September 2029</span>
-        <h3>AWS Certified Solutions Architect - Associate</h3>
-        <p>SAA-C03, Amazon Web Services</p>
-        <a href="https://www.credly.com/badges/d5831f36-8db3-4800-84b6-a1652e15f7c3" target="_blank" rel="noopener">Verify on Credly →</a>
+      <div class="cred" style="--k:var(--cloud)">
+        <div class="badge"><svg viewBox="0 0 56 56" aria-hidden="true"><path d="M28 3L50 15.5V40.5L28 53L6 40.5V15.5Z" fill="color-mix(in srgb, var(--cloud) 18%, transparent)" stroke="var(--cloud)" stroke-width="2"/><text x="28" y="26" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="8" font-weight="700" fill="var(--cloud)">SAA</text><text x="28" y="36" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="8" font-weight="700" fill="var(--cloud)">C03</text></svg></div>
+        <div>
+          <span class="eyebrow">September 2026 · Valid to September 2029</span>
+          <h3>AWS Certified Solutions Architect - Associate</h3>
+          <p>Amazon Web Services</p>
+          <a href="https://www.credly.com/badges/d5831f36-8db3-4800-84b6-a1652e15f7c3" target="_blank" rel="noopener">Verify on Credly →</a>
+        </div>
       </div>
-      <div class="cred">
-        <span class="eyebrow">January 2025</span>
-        <h3>Associate Data Scientist in Python</h3>
-        <p>DataCamp</p>
-        <a href="https://www.datacamp.com/certificate/DSA0015108797710" target="_blank" rel="noopener">View certificate →</a>
+      <div class="cred" style="--k:var(--data)">
+        <div class="badge"><svg viewBox="0 0 56 56" aria-hidden="true"><rect x="4" y="4" width="48" height="48" rx="14" fill="color-mix(in srgb, var(--data) 18%, transparent)"/><path d="M16 38V30M24 38V22M32 38V26M40 38V16" stroke="var(--data)" stroke-width="4" stroke-linecap="round"/></svg></div>
+        <div>
+          <span class="eyebrow">January 2025</span>
+          <h3>Associate Data Scientist in Python</h3>
+          <p>DataCamp</p>
+          <a href="https://www.datacamp.com/certificate/DSA0015108797710" target="_blank" rel="noopener">View certificate →</a>
+        </div>
       </div>
-      <div class="cred">
-        <span class="eyebrow">June 2025</span>
-        <h3>Data Structures and Algorithms in Depth (C#)</h3>
-        <p>Udemy</p>
-        <a href="https://www.udemy.com/certificate/UC-63fe847a-a18a-49f5-83e0-0ab00506629f/" target="_blank" rel="noopener">View certificate →</a>
+      <div class="cred" style="--k:#8B7CF6">
+        <div class="badge"><svg viewBox="0 0 56 56" aria-hidden="true"><rect x="4" y="4" width="48" height="48" rx="14" fill="color-mix(in srgb, #8B7CF6 18%, transparent)"/><circle cx="28" cy="17" r="4" fill="#8B7CF6"/><circle cx="18" cy="31" r="4" fill="#8B7CF6"/><circle cx="38" cy="31" r="4" fill="#8B7CF6"/><circle cx="13" cy="43" r="3" fill="#8B7CF6"/><circle cx="23" cy="43" r="3" fill="#8B7CF6"/><path d="M28 17L18 31M28 17L38 31M18 31L13 43M18 31L23 43" stroke="#8B7CF6" stroke-width="2"/></svg></div>
+        <div>
+          <span class="eyebrow">June 2025</span>
+          <h3>Data Structures and Algorithms in Depth (C#)</h3>
+          <p>Udemy</p>
+          <a href="https://www.udemy.com/certificate/UC-63fe847a-a18a-49f5-83e0-0ab00506629f/" target="_blank" rel="noopener">View certificate →</a>
+        </div>
       </div>
     </div>
   </section>
+</main>
 
-  <section id="contact" aria-labelledby="contact-h">
-    <div class="contact">
+<div class="band cta" id="contact">
+  <div class="wrap">
+    <div class="inner">
       <div>
         <p class="eyebrow">Contact</p>
-        <h2 id="contact-h">Let's talk about your team.</h2>
+        <h2>Let's build something <span class="grad">that stays up.</span></h2>
         <p>I'm available for graduate roles across cloud, software engineering and data in Australia, and can start without a notice period.</p>
       </div>
       <div>
         <div class="email">
           <span id="email-text">anishkumarvaswani27@gmail.com</span>
-          <button type="button" id="copy-email">Copy</button>
+          <button type="button" id="copy-email">Copy email</button>
         </div>
         <div class="links" style="margin-top:0">
-          <a class="btn" href="https://github.com/AKV2703" target="_blank" rel="noopener">GitHub</a>
+          <a class="btn" href="https://github.com/AKV2703" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#gh"/></svg>GitHub</a>
           <a class="btn" href="https://linkedin.com/in/anish-kumar-vaswani-38162b306" target="_blank" rel="noopener">LinkedIn</a>
         </div>
       </div>
     </div>
-  </section>
-
-  <footer>
-    <span>Anish Kumar Vaswani · Melbourne, VIC</span>
-    <span>Last updated October 2026</span>
-  </footer>
-</main>
+  </div>
+  <footer><div class="wrap"><span>Anish Kumar Vaswani · Melbourne, VIC</span><span>Last updated October 2026</span></div></footer>
+</div>
 
 <script>
 (function(){
-  var buttons = document.querySelectorAll('.filters button');
-  var cards = document.querySelectorAll('#projects .proj');
-  function apply(f){
-    buttons.forEach(function(b){ b.setAttribute('aria-pressed', String(b.dataset.filter === f)); });
-    cards.forEach(function(c){ c.hidden = !(f === 'all' || c.dataset.cat === f); });
-    try{ localStorage.setItem('akv-filter', f); }catch(e){}
-  }
-  buttons.forEach(function(b){ b.addEventListener('click', function(){ apply(b.dataset.filter); }); });
-  try{ var saved = localStorage.getItem('akv-filter'); if(saved) apply(saved); }catch(e){}
+  var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var root = document.documentElement;
 
-  var copyBtn = document.getElementById('copy-email');
-  var emailEl = document.getElementById('email-text');
+  /* theme toggle */
+  try{ var st = localStorage.getItem('akv-theme'); if(st) root.setAttribute('data-theme', st); }catch(e){}
+  function currentTheme(){ return root.getAttribute('data-theme') || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'); }
+  document.getElementById('theme').addEventListener('click', function(){
+    var next = currentTheme() === 'dark' ? 'light' : 'dark';
+    root.setAttribute('data-theme', next);
+    try{ localStorage.setItem('akv-theme', next); }catch(e){}
+  });
+
+  /* scroll progress */
+  var bar = document.getElementById('progress');
+  function prog(){ var h = document.documentElement.scrollHeight - innerHeight; bar.style.transform = 'scaleX(' + (h > 0 ? Math.min(1, scrollY / h) : 0) + ')'; }
+  addEventListener('scroll', prog, {passive:true}); prog();
+
+  /* rotating words */
+  var words = ['cloud infrastructure', 'data pipelines', 'machine learning models', 'REST APIs'];
+  var wEl = document.getElementById('word'), wi = 0;
+  if(reduce){
+    setInterval(function(){ wi = (wi + 1) % words.length; wEl.textContent = words[wi]; }, 3000);
+  } else {
+    var pos = words[0].length, del = false, hold = 0;
+    setInterval(function(){
+      var w = words[wi];
+      if(hold > 0){ hold--; return; }
+      if(!del){ pos++; if(pos >= w.length){ pos = w.length; del = true; hold = 28; } }
+      else { pos--; if(pos <= 0){ pos = 0; del = false; wi = (wi + 1) % words.length; hold = 4; } }
+      wEl.textContent = words[wi].slice(0, pos) || ' ';
+    }, 55);
+  }
+
+  /* terminal command typing (full text is there at rest) */
+  var cmd = document.getElementById('cmd');
+  if(!reduce){
+    var full = cmd.textContent, i = 0; cmd.textContent = '';
+    var t = setInterval(function(){ i++; cmd.textContent = full.slice(0, i); if(i >= full.length) clearInterval(t); }, 28);
+  }
+
+  /* hero network canvas */
+  var cv = document.getElementById('net'), ctx = cv.getContext('2d');
+  var band = cv.parentElement, W = 0, H = 0, nodes = [], packets = [], mouse = {x:-9999, y:-9999}, running = false;
+  var COLS = ['#3FD0E0', '#FF7E5F', '#FFC94D', '#3FD0E0'];
+  function resize(){
+    var dpr = Math.min(window.devicePixelRatio || 1, 2), r = cv.getBoundingClientRect();
+    W = r.width; H = r.height; cv.width = W * dpr; cv.height = H * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    var n = Math.round(Math.max(24, Math.min(80, W * H / 13000)));
+    nodes = [];
+    for(var k = 0; k < n; k++) nodes.push({x:Math.random()*W, y:Math.random()*H, vx:(Math.random()-.5)*.3, vy:(Math.random()-.5)*.3, r:1 + Math.random()*1.8, c:COLS[k % COLS.length]});
+    packets = [];
+  }
+  function frame(){
+    ctx.clearRect(0, 0, W, H);
+    var i, j, a, b, dx, dy, d;
+    for(i = 0; i < nodes.length; i++){
+      a = nodes[i];
+      if(!reduce){ a.x += a.vx; a.y += a.vy; if(a.x < 0 || a.x > W) a.vx *= -1; if(a.y < 0 || a.y > H) a.vy *= -1; }
+      dx = a.x - mouse.x; dy = a.y - mouse.y; d = Math.sqrt(dx*dx + dy*dy);
+      if(d < 120 && d > 0){ a.x += dx / d * .6; a.y += dy / d * .6; }
+    }
+    for(i = 0; i < nodes.length; i++){
+      a = nodes[i];
+      for(j = i + 1; j < nodes.length; j++){
+        b = nodes[j]; dx = a.x - b.x; dy = a.y - b.y; d = dx*dx + dy*dy;
+        if(d < 17000){ ctx.strokeStyle = 'rgba(160,190,230,' + (0.16 * (1 - d / 17000)) + ')'; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke(); }
+      }
+      dx = a.x - mouse.x; dy = a.y - mouse.y; d = dx*dx + dy*dy;
+      if(d < 30000){ ctx.strokeStyle = 'rgba(63,208,224,' + (0.45 * (1 - d / 30000)) + ')'; ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(mouse.x, mouse.y); ctx.stroke(); }
+    }
+    for(i = 0; i < nodes.length; i++){ a = nodes[i]; ctx.fillStyle = a.c; ctx.globalAlpha = .75; ctx.beginPath(); ctx.arc(a.x, a.y, a.r, 0, 6.283); ctx.fill(); }
+    ctx.globalAlpha = 1;
+    if(!reduce){
+      if(packets.length < 16 && Math.random() < .12){
+        a = nodes[(Math.random() * nodes.length) | 0]; var best = null, bd = 17000;
+        for(j = 0; j < nodes.length; j++){ b = nodes[j]; if(b === a) continue; dx = a.x - b.x; dy = a.y - b.y; d = dx*dx + dy*dy; if(d < bd && Math.random() < .5){ bd = d; best = b; } }
+        if(best) packets.push({a:a, b:best, t:0, c:a.c});
+      }
+      for(i = packets.length - 1; i >= 0; i--){
+        var p = packets[i]; p.t += .014;
+        if(p.t >= 1){ packets.splice(i, 1); continue; }
+        var x = p.a.x + (p.b.x - p.a.x) * p.t, y = p.a.y + (p.b.y - p.a.y) * p.t;
+        ctx.fillStyle = p.c; ctx.shadowColor = p.c; ctx.shadowBlur = 10; ctx.beginPath(); ctx.arc(x, y, 2.4, 0, 6.283); ctx.fill(); ctx.shadowBlur = 0;
+      }
+    }
+    if(running) requestAnimationFrame(frame);
+  }
+  resize();
+  if(reduce){ frame(); }
+  else if('IntersectionObserver' in window){
+    new IntersectionObserver(function(es){ var vis = es[0].isIntersecting; if(vis && !running){ running = true; requestAnimationFrame(frame); } else if(!vis){ running = false; } }).observe(band);
+  } else { running = true; requestAnimationFrame(frame); }
+  var rt; addEventListener('resize', function(){ clearTimeout(rt); rt = setTimeout(function(){ resize(); if(reduce) frame(); }, 150); });
+  band.addEventListener('pointermove', function(e){ var r = cv.getBoundingClientRect(); mouse.x = e.clientX - r.left; mouse.y = e.clientY - r.top; });
+  band.addEventListener('pointerleave', function(){ mouse.x = mouse.y = -9999; });
+
+  /* project filtering: category + tech */
+  var cards = [].slice.call(document.querySelectorAll('#projects .proj'));
+  cards.forEach(function(c){ c._tags = [].slice.call(c.querySelectorAll('.tag')).map(function(t){ return t.textContent.trim().toLowerCase(); }); });
+  var fbtns = document.querySelectorAll('.filters button');
+  var techbar = document.getElementById('techbar'), techname = document.getElementById('techname');
+  var state = {cat:'all', tech:null};
+  try{ var sv = localStorage.getItem('akv-filter'); if(sv === 'cloud' || sv === 'data') state.cat = sv; }catch(e){}
+  function render(){
+    fbtns.forEach(function(b){ b.setAttribute('aria-pressed', String(b.dataset.filter === state.cat && !state.tech)); });
+    var tl = state.tech ? state.tech.toLowerCase() : null;
+    cards.forEach(function(c){
+      var ok = (state.cat === 'all' || c.dataset.cat === state.cat) && (!tl || c._tags.indexOf(tl) > -1);
+      c.hidden = !ok; c.classList.toggle('match', !!tl && ok);
+      c.querySelectorAll('.tag').forEach(function(t){ t.classList.toggle('on', !!tl && t.textContent.trim().toLowerCase() === tl); });
+    });
+    techbar.hidden = !state.tech; techname.textContent = state.tech || '';
+  }
+  fbtns.forEach(function(b){ b.addEventListener('click', function(){ state.cat = b.dataset.filter; state.tech = null; try{ localStorage.setItem('akv-filter', state.cat); }catch(e){} render(); }); });
+  document.getElementById('techclear').addEventListener('click', function(){ state.tech = null; render(); });
+  function pickTech(name, jump){ state.tech = name; state.cat = 'all'; render(); if(jump) document.getElementById('work').scrollIntoView({behavior: reduce ? 'auto' : 'smooth'}); }
+  document.getElementById('projects').addEventListener('click', function(e){ var t = e.target.closest('.tag'); if(t) pickTech(t.textContent.trim(), false); });
+
+  /* skill chips: count matching projects */
+  document.querySelectorAll('.chip').forEach(function(ch){
+    var name = ch.textContent.trim(), n = cards.filter(function(c){ return c._tags.indexOf(name.toLowerCase()) > -1; }).length;
+    if(n){
+      ch.dataset.tech = name; var s = document.createElement('sup'); s.textContent = n; ch.appendChild(s);
+      ch.setAttribute('aria-label', name + ', ' + n + (n > 1 ? ' projects' : ' project'));
+      ch.addEventListener('click', function(){ pickTech(name, true); });
+    } else { ch.setAttribute('aria-disabled', 'true'); ch.tabIndex = -1; }
+  });
+  render();
+
+  /* card tilt + spotlight */
+  if(!reduce && matchMedia('(hover: hover)').matches){
+    cards.forEach(function(c){
+      c.addEventListener('pointermove', function(e){
+        var r = c.getBoundingClientRect(), x = (e.clientX - r.left) / r.width, y = (e.clientY - r.top) / r.height;
+        c.style.setProperty('--mx', (x * 100) + '%'); c.style.setProperty('--my', (y * 100) + '%');
+        c.style.setProperty('--ry', ((x - .5) * 5) + 'deg'); c.style.setProperty('--rx', ((.5 - y) * 5) + 'deg');
+      });
+      c.addEventListener('pointerleave', function(){ c.style.setProperty('--rx', '0deg'); c.style.setProperty('--ry', '0deg'); });
+    });
+  }
+
+  /* charts grow when scrolled into view (they are full size at rest) */
+  if(!reduce && 'IntersectionObserver' in window){
+    var io = new IntersectionObserver(function(es){ es.forEach(function(en){ if(en.isIntersecting){ en.target.classList.add('grow'); io.unobserve(en.target); } }); }, {threshold:.35});
+    document.querySelectorAll('.viz').forEach(function(v){ if(v.querySelector('.bar,.hbar')) io.observe(v); });
+  }
+
+  /* copy email */
+  var copyBtn = document.getElementById('copy-email'), emailEl = document.getElementById('email-text');
   copyBtn.addEventListener('click', function(){
-    var text = emailEl.textContent;
-    function selectIt(){ var r = document.createRange(); r.selectNodeContents(emailEl); var s = getSelection(); s.removeAllRanges(); s.addRange(r); copyBtn.textContent = 'Selected'; }
-    try{
-      navigator.clipboard.writeText(text).then(function(){ copyBtn.textContent = 'Copied'; setTimeout(function(){ copyBtn.textContent = 'Copy'; }, 1800); }, selectIt);
-    }catch(e){ selectIt(); }
+    function selectIt(){ var r = document.createRange(); r.selectNodeContents(emailEl); var s = getSelection(); s.removeAllRanges(); s.addRange(r); copyBtn.textContent = 'Selected, press Cmd+C'; }
+    try{ navigator.clipboard.writeText(emailEl.textContent).then(function(){ copyBtn.textContent = 'Copied!'; setTimeout(function(){ copyBtn.textContent = 'Copy email'; }, 1800); }, selectIt); }
+    catch(e){ selectIt(); }
   });
 })();
 </script>
